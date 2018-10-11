@@ -1,5 +1,6 @@
 # Global
 extensions
+node_modules
 
 # API
 api/.env
