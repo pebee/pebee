@@ -1,0 +1,53 @@
+{
+  "name": "pebee-dashboard",
+  "version": "1.0.0",
+  "description": "PeBeeCMS Dashboard",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --host 0.0.0.0"
+  },
+  "author": "Piotr Bienias",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "babel-plugin-import": "^1.8.0",
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.9.3",
+    "react-hot-loader": "^4.3.6",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8"
+  },
+  "dependencies": {
+    "antd": "^3.9.2",
+    "axios": "^0.18.0",
+    "history": "^4.7.2",
+    "immutable": "^3.8.2",
+    "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.11",
+    "object-hash": "^1.3.0",
+    "pebee-cms": "file:../extensions/pebee-cms",
+    "pebee-extensions": "file:../extensions",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-delay-render": "^0.1.2",
+    "react-dom": "^16.5.0",
+    "react-imported-component": "^4.6.2",
+    "react-intl": "^2.7.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^5.0.0-alpha.8",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1",
+    "universal-cookie": "^3.0.4"
+  }
+}

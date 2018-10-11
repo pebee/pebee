@@ -1,0 +1,29 @@
+{
+    "pebee.global.save": "Zapisz",
+    "pebee.global.delete": "Usuń",
+    "pebee.global.restore": "Przywróć",
+    "pebee.global.cancel": "Anuluj",
+
+    "pebee.login.username": "Nazwa uzytkownika",
+    "pebee.login.password": "Hasło",
+    "pebee.login.provideUsername": "Proszę podać nazwę uzytkownika",
+    "pebee.login.providePassword": "Proszę podać hasło",
+    "pebee.login.loginButton": "Zaloguj się",
+    "pebee.login.wrongUsernameOrPassword": "Zła nazwa uzytkownika lub hasło",
+
+    "pebee.home.users": "Uzytkownicy",
+    "pebee.home.usersList": "Lista uzytkowników",
+    "pebee.home.addNewUser": "Dodaj nowego",
+
+    "pebee.users.username": "Nazwa uzytkownika",
+    "pebee.users.accountCategory": "Kategoria",
+    "pebee.users.deleteUser": "Czy chcesz usunąć tego uzytkownika?",
+    "pebee.users.restoreUser": "Czy chcesz przywrócić tego uzytkownika?",
+
+    "pebee.editUser.editUser": "Edytuj uzytkownika",
+    "pebee.editUser.successMessage": "Dane uzytkownika zostały zaktualizowane",
+    "pebee.editUser.errorMessage": "Wystąpił błąd podczas aktualizacji uzytkownika",
+    "pebee.editUser.usernameIsRequired": "Nazwa uzytkownika jest obowiązkowa",
+
+    "pebee.addUser.addUser": "Dodaj uzytkownika"
+}

@@ -1,0 +1,11 @@
+# Global
+extensions
+
+# API
+api/.env
+api/pebee-logs.log
+api/node_modules
+
+# Dashboard
+dashboard/dist
+dashboard/node_modules

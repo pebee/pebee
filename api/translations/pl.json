@@ -1,0 +1,16 @@
+{
+    "Account category does not exist": "Kategoria uzytkownika nie istnieje",
+    "Example": "Przykład",
+    "Please provide valid e-mail": "Proszę podać prawidłowy adres e-mail",
+    "User does not exist": "Uzytkownik nie istnieje",
+    "Invalid username or password": "Nieprawidłowa nazwa uzytkownika lub hasło",
+    "You are not authorized to perform this operation": "Nie jesteś uprawniony do wykonania tej operacji",
+    "This username is already in use": "Uzytkownik o tej nazwie juz istnieje",
+    "pebee.db.error": "Błąd podczas wykonywania operacji",
+    "pebee.db.accountCategoryDoesNotExist": "Wybrana kategoria uzytkownika nie istnieje",
+    "pebee.db.foreignKeyConstraintError": "Powiązany obiekt nie istnieje",
+    "Error while performing the operation": "Błąd podczas wykonywania operacji",
+
+    "pebee.users.createUserError": "Wystąpił błąd podczas tworzenia nowego uzytkownika",
+    "pebee.users.restoreUser": "Uzytkownik został przywrócony"
+}

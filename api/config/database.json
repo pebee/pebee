@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "pebee_cms",
+    "password": "pebee_cms2018!",
+    "database": "pebee_cms",
+    "host": "postgres",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "pebee_cms",
+    "password": "pebee_cms2018!",
+    "database": "pebee_cms_test",
+    "host": "postgres",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

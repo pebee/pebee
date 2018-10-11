@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  api:
+    build: ./api
+    volumes:
+      - ./api:/home/pebee/api
+      - ./extensions:/home/pebee/extensions
+    command: gulp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:9.6.2-alpine
+    volumes:
+      - ./api/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    environment:
+      POSTGRES_PASSWORD: pebee_cms2018!
+
+  dashboard:
+    build: ./dashboard
+    volumes:
+      - ./dashboard:/home/pebee/dashboard
+      - ./extensions:/home/pebee/extensions
+      - /home/pebee/dashboard
+    ports:
+      - "4000:4000"
+    command: npm start
+    depends_on:
+      - api
