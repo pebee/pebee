@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
+        },
+        isProtected: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: false
         }
     }, {
         hooks: {
@@ -34,6 +39,14 @@ module.exports = (sequelize, DataTypes) => {
                         as: 'Permissions'
                     }
                 };
+            },
+            withUsersCount: function() {
+                return {
+                    include: {
+                        model: sequelize.models.User,
+                        as: 'Users'
+                    }
+                }
             }
         },
         tableName: 'account_categories',
@@ -43,10 +56,11 @@ module.exports = (sequelize, DataTypes) => {
 
     AccountCategory.associate = function(models) {
         this.belongsToMany(models.Permission, { as: 'Permissions', through: models.AccountCategoryPermissions, foreignKey: 'accountCategoryId' });
+        this.hasMany(models.User, { as: 'Users', foreignKey: 'accountCategoryId' });
     };
 
     AccountCategory.prototype.serialize = function() {
-        let keys = ['id', 'name', 'label', 'isDeleted'],
+        let keys = ['id', 'name', 'label', 'isDeleted', 'isProtected'],
             accountCategory = {};
 
         keys.forEach(key => {
@@ -54,6 +68,8 @@ module.exports = (sequelize, DataTypes) => {
         });
 
         accountCategory.permissions = this.Permissions ? this.Permissions.map(permission => { return permission.serialize(); }) : this.Permissions;
+
+        accountCategory.usersCount = ( this.Users && Array.isArray(this.Users) ) ? this.Users.length : null;
 
         return accountCategory;
     };

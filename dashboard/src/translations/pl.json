@@ -14,6 +14,7 @@
     "pebee.home.users": "Uzytkownicy",
     "pebee.home.usersList": "Lista uzytkowników",
     "pebee.home.addNewUser": "Dodaj nowego",
+    "pebee.home.accountCategories": "Kategorie",
 
     "pebee.users.username": "Nazwa uzytkownika",
     "pebee.users.accountCategory": "Kategoria",
@@ -25,5 +26,11 @@
     "pebee.editUser.errorMessage": "Wystąpił błąd podczas aktualizacji uzytkownika",
     "pebee.editUser.usernameIsRequired": "Nazwa uzytkownika jest obowiązkowa",
 
-    "pebee.addUser.addUser": "Dodaj uzytkownika"
+    "pebee.addUser.addUser": "Dodaj uzytkownika",
+
+    "pebee.accountCategories.name": "Nazwa",
+    "pebee.accountCategories.usersCount": "Ilość uzytkowników",
+    "pebee.accountCategories.addNew": "Dodaj nową",
+    "pebee.accountCategories.restoreAccountCategory": "Czy chcesz przywrócić wybraną kategorię?",
+    "pebee.accountCategories.deleteAccountCategory": "Czy chcesz usunąć wybraną kategorię?"
 }

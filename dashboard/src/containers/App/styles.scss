@@ -1,5 +1,15 @@
 .mainRow {
     height: 100%;
+
+    .ContentRow {
+        margin-top: 45px;
+
+        > .HeaderRow {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+    }
 }
 
 .sideMenuCol {

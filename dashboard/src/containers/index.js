@@ -9,8 +9,8 @@ const LoginPage = importedComponent(
     () => import(/* webpackChunkName:'LoginPage' */ './Login')
 );
 
-const ExtensionPage = importedComponent(
-    () => import(/* webpackChunkName:'ExtensionPage' */ './ExtPage')
+const Extension = importedComponent(
+    () => import(/* webpackChunkName:'Extension' */ './Extension')
 );
 
 const Users = importedComponent(
@@ -21,11 +21,16 @@ const EditUser = importedComponent(
     () => import(/* webpackChunkName:'EditUser' */ './EditUser')
 );
 
+const AccountCategoriesList = importedComponent(
+    () => import(/* webpackChunkName:'AccountCategoriesList' */ './AccountCategoriesList')
+);
+
 
 export {
     Home,
     Users,
     EditUser,
     LoginPage,
-    ExtensionPage
+    Extension,
+    AccountCategoriesList
 };

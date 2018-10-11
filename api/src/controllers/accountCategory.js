@@ -1,7 +1,7 @@
 'use strict';
 
 import express from 'express';
-import { map } from 'underscore';
+
 
 const router = express.Router();
 
@@ -22,7 +22,7 @@ router.all(/(^\/$)|(^\/(\d+|all)$)/, (req, res, next) => {
 // return all account categories
 router.get('/all', (req, res) => {
 
-    pebee.models.AccountCategory.findAll().then(accountCategories => {
+    pebee.models.AccountCategory.scope('withUsersCount').findAll().then(accountCategories => {
         let mappedAccountCategories = accountCategories.map(accountCategory => {
             return accountCategory.serialize();
         });

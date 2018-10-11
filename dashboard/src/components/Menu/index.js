@@ -30,6 +30,7 @@ class SideMenu extends React.Component {
                     title={<span><Icon type="user" /> {formatMessage({ id: 'pebee.home.users' })}</span>}>
                     <Menu.Item key="/users">{formatMessage({ id: 'pebee.home.usersList' })}</Menu.Item>
                     <Menu.Item key="/users/add">{formatMessage({ id: 'pebee.home.addNewUser' })}</Menu.Item>
+                    <Menu.Item key="/account-categories">{formatMessage({ id: 'pebee.home.accountCategories' })}</Menu.Item>
                 </Menu.SubMenu>
             </Menu>
         );

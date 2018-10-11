@@ -48,7 +48,7 @@ class EditUser extends React.Component {
         const { formatMessage } = this.props.intl;
 
         return (
-            <Row className={Styles.EditUserRow}>
+            <div>
                 <Col span={16}>
                     <h1>
                         <FormattedMessage id={headerId} />
@@ -66,7 +66,7 @@ class EditUser extends React.Component {
                             showIcon />
                     ) : null }
                 </Col>
-            </Row>
+            </div>
         );
     }
 

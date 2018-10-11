@@ -4,20 +4,45 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.bulkInsert('permissions', [
             {
-                name: 'Permission #1',
-                label: 'permission-1',
+                name: 'Can view users',
+                label: 'can-view-users',
                 createdAt: new Date()
             },
             {
-                name: 'Permission #2',
-                label: 'permission-2',
+                name: 'Can add users',
+                label: 'can-add-users',
                 createdAt: new Date()
             },
             {
-                name: 'Permission #3',
-                label: 'permission-3',
+                name: 'Can update users',
+                label: 'can-update-users',
                 createdAt: new Date()
-            }
+            },
+            {
+                name: 'Can delete users',
+                label: 'can-delete-users',
+                createdAt: new Date()
+            },
+            {
+                name: 'Can view account categories',
+                label: 'can-view-account-categories',
+                createdAt: new Date()
+            },
+            {
+                name: 'Can edit account categories',
+                label: 'can-edit-account-categories',
+                createdAt: new Date()
+            },
+            {
+                name: 'Can add account categories',
+                label: 'can-add-account-categories',
+                createdAt: new Date()
+            },
+            {
+                name: 'Can delete account categories',
+                label: 'can-delete-account-categories',
+                createdAt: new Date()
+            },
         ]);
     },
 

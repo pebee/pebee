@@ -12,8 +12,28 @@ module.exports = {
                 permissionId: 2
             },
             {
-                accountCategoryId: 2,
+                accountCategoryId: 1,
                 permissionId: 3
+            },
+            {
+                accountCategoryId: 1,
+                permissionId: 4
+            },
+            {
+                accountCategoryId: 1,
+                permissionId: 5
+            },
+            {
+                accountCategoryId: 1,
+                permissionId: 6
+            },
+            {
+                accountCategoryId: 1,
+                permissionId: 7
+            },
+            {
+                accountCategoryId: 1,
+                permissionId: 8
             }
         ]);
     },

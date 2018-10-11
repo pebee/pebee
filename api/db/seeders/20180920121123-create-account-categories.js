@@ -7,13 +7,15 @@ module.exports = {
                 id: 1,
                 name: 'Administrator',
                 label: 'admin',
-                createdAt: new Date()
+                createdAt: new Date(),
+                isProtected: true
             },
             {
                 id: 2,
                 name: 'Subscriber',
                 label: 'subscriber',
-                createdAt: new Date()
+                createdAt: new Date(),
+                isProtected: false
             }
         ]);
     },

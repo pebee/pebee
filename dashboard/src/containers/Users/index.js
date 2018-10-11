@@ -80,8 +80,7 @@ class Users extends React.Component {
     render() {
 
         return (
-            <Row
-                className={Styles.UsersRow}>
+            <div>
                 <Row
                     className={Styles.HeaderRow}>
                     <h1
@@ -104,7 +103,7 @@ class Users extends React.Component {
                     onChange={this.handleTableChange}
                     deleteUser={this.deleteUser}
                     restoreUser={this.restoreUser} />
-            </Row>
+            </div>
         )
     }
 

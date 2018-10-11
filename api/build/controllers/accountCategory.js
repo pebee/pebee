@@ -7,8 +7,6 @@ exports.default = void 0;
 
 var _express = _interopRequireDefault(require("express"));
 
-var _underscore = require("underscore");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express.default.Router(); // check permission for basic CRUD operations
@@ -25,7 +23,7 @@ router.all(/(^\/$)|(^\/(\d+|all)$)/, function (req, res, next) {
 }); // return all account categories
 
 router.get('/all', function (req, res) {
-  pebee.models.AccountCategory.findAll().then(function (accountCategories) {
+  pebee.models.AccountCategory.scope('withUsersCount').findAll().then(function (accountCategories) {
     var mappedAccountCategories = accountCategories.map(function (accountCategory) {
       return accountCategory.serialize();
     });

@@ -13,9 +13,10 @@ import {
 
 import {
     Home,
-    ExtensionPage,
+    Extension,
     Users,
-    EditUser
+    EditUser,
+    AccountCategoriesList
 } from './../index';
 
 import Authorized from './../../components/Auth';
@@ -43,13 +44,14 @@ class App extends React.Component {
                         history={this.context.router.history} />
                 </Col>
                 <Col span={18} offset={1}>
-                    <div>
+                    <Row className={Styles.ContentRow}>
                         <Route exact path="/" component={Home} />
-                        <Route path="/extensions/:slug" component={ExtensionPage} />
+                        <Route path="/extensions/:slug" component={Extension} />
                         <Route exact path="/users" component={Users} />
                         <Route exact path="/users/add" component={EditUser} />
                         <Route path="/users/edit/:id" component={EditUser} />
-                    </div>
+                        <Route exact path="/account-categories" component={AccountCategoriesList} />
+                    </Row>
                 </Col>
             </Row>
         );
