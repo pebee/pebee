@@ -1,10 +1,23 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import { getAccountCategories } from './api';
-import { fetchAccountCategoriesSuccess, fetchAccountCategoriesFailure } from './actions';
-import { FETCH_ACCOUNT_CATEGORIES } from './constants';
+
+import {
+    getAccountCategories,
+    deleteAccountCategory,
+    restoreAccountCategory
+} from './api';
+
+import {
+    fetchAccountCategories,
+    fetchAccountCategoriesSuccess,
+    fetchAccountCategoriesFailure,
+
+    deleteAccountCategoryFailure
+} from './actions';
+
+import { FETCH_ACCOUNT_CATEGORIES, DELETE_ACCOUNT_CATEGORY, RESTORE_ACCOUNT_CATEGORY } from './constants';
 
 
-function* fetchAccountCategories() {
+function* fetchAccountCategoriesSaga() {
 
     try {
         const response = yield getAccountCategories();
@@ -16,8 +29,34 @@ function* fetchAccountCategories() {
 
 }
 
+function* deleteAccountCategorySaga(action) {
+
+    try {
+        yield deleteAccountCategory(action.data);
+
+        yield put(fetchAccountCategories());
+    } catch (e) {
+        yield put(deleteAccountCategoryFailure());
+    }
+
+}
+
+function* restoreAccountCategorySaga(action) {
+
+    try {
+        yield restoreAccountCategory(action.data);
+
+        yield put(fetchAccountCategories());
+    } catch (e) {
+        console.log(e);
+    }
+
+}
+
 function* accountCategoriesListSaga() {
-    yield takeLatest(FETCH_ACCOUNT_CATEGORIES, fetchAccountCategories);
+    yield takeLatest(FETCH_ACCOUNT_CATEGORIES, fetchAccountCategoriesSaga);
+    yield takeLatest(DELETE_ACCOUNT_CATEGORY, deleteAccountCategorySaga);
+    yield takeLatest(RESTORE_ACCOUNT_CATEGORY, restoreAccountCategorySaga);
 }
 
 

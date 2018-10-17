@@ -14,9 +14,12 @@ import {
 import {
     Home,
     Extension,
+
     Users,
     EditUser,
-    AccountCategoriesList
+
+    AccountCategoriesList,
+    SingleAccountCategory
 } from './../index';
 
 import Authorized from './../../components/Auth';
@@ -41,16 +44,21 @@ class App extends React.Component {
             <Row className={Styles.mainRow}>
                 <Col span={4} className={Styles.sideMenuCol}>
                     <SideMenu
+                        user={this.props.loggedInUser.toJS()}
                         history={this.context.router.history} />
                 </Col>
                 <Col span={18} offset={1}>
                     <Row className={Styles.ContentRow}>
                         <Route exact path="/" component={Home} />
                         <Route path="/extensions/:slug" component={Extension} />
+
                         <Route exact path="/users" component={Users} />
                         <Route exact path="/users/add" component={EditUser} />
                         <Route path="/users/edit/:id" component={EditUser} />
+
                         <Route exact path="/account-categories" component={AccountCategoriesList} />
+                        <Route exact path="/account-categories/add" component={SingleAccountCategory} />
+                        <Route exact path="/account-categories/edit/:id" component={SingleAccountCategory} />
                     </Row>
                 </Col>
             </Row>

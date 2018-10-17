@@ -21,12 +21,17 @@ function appReducer(state = initialState, action) {
             return state
                 .set('isLoggedIn', false)
                 .set('loggedInUser', Map({}));
+
         case FETCH_ACCOUNT_SUCCESS:
             return state
                 .set('isLoggedIn', true)
                 .set('loggedInUser', Map(action.data));
+
         case LOGIN_SUCCESS:
-            return state.set('isLoggedIn', true);
+            return state
+                .set('isLoggedIn', true)
+                .set('loggedInUser', Map(action.data.data));
+            
         default:
             return state;
     }

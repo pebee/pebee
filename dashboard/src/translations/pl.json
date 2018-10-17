@@ -3,6 +3,17 @@
     "pebee.global.delete": "Usuń",
     "pebee.global.restore": "Przywróć",
     "pebee.global.cancel": "Anuluj",
+    "pebee.global.permissions": "Uprawnienia",
+
+    "pebee.permissions.can-view-users": "Moze wyświetlać uzytkowników",
+    "pebee.permissions.can-add-users": "Moze dodawać uzytkowników",
+    "pebee.permissions.can-update-users": "Moze aktualizować uzytkowników",
+    "pebee.permissions.can-delete-users": "Moze usuwać uzytkowników",
+    "pebee.permissions.can-view-account-categories": "Moze wyświetlać kategorie uzytkowników",
+    "pebee.permissions.can-edit-account-categories": "Moze edytować kategogorie uzytkowników",
+    "pebee.permissions.can-add-account-categories": "Moze dodawać kategorie uzytkowników",
+    "pebee.permissions.can-delete-account-categories": "Moze usuwać kategorie uzytkowników",
+    "pebee.permissions.can-update-account-categories": "Moze aktualizować kategorie uzytkowników",
 
     "pebee.login.username": "Nazwa uzytkownika",
     "pebee.login.password": "Hasło",
@@ -32,5 +43,7 @@
     "pebee.accountCategories.usersCount": "Ilość uzytkowników",
     "pebee.accountCategories.addNew": "Dodaj nową",
     "pebee.accountCategories.restoreAccountCategory": "Czy chcesz przywrócić wybraną kategorię?",
-    "pebee.accountCategories.deleteAccountCategory": "Czy chcesz usunąć wybraną kategorię?"
+    "pebee.accountCategories.deleteAccountCategory": "Czy chcesz usunąć wybraną kategorię?",
+    "pebee.accountCategories.addAccountCategory": "Dodaj kategorię uzytkownika",
+    "pebee.accountCategories.editAccountCategory": "Edytuj kategorię uzytkownika"
 }

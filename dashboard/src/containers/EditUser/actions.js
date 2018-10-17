@@ -12,7 +12,10 @@ import {
     SAVE_USER_FAILURE,
     SAVE_USER_SUCCESS,
 
-    CLOSE_MESSAGE
+    CLOSE_MESSAGE,
+    
+    FETCH_ACCOUNT_CATEGORIES,
+    FETCH_ACCOUNT_CATEGORIES_SUCCESS
 } from './constants';
 
 
@@ -73,5 +76,19 @@ export const saveUserFailure = data => {
 export const closeMessage = () => {
     return {
         type: CLOSE_MESSAGE
+    }
+};
+
+
+export const fetchAccountCategories = () => {
+    return {
+        type: FETCH_ACCOUNT_CATEGORIES
+    }
+};
+
+export const fetchAccountCategoriesSuccess = data => {
+    return {
+        type: FETCH_ACCOUNT_CATEGORIES_SUCCESS,
+        data
     }
 };

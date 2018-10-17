@@ -25,6 +25,10 @@ const AccountCategoriesList = importedComponent(
     () => import(/* webpackChunkName:'AccountCategoriesList' */ './AccountCategoriesList')
 );
 
+const SingleAccountCategory = importedComponent(
+    () => import(/* webpackChunkName:'SingleAccountCategory' */ './SingleAccountCategory')
+);
+
 
 export {
     Home,
@@ -32,5 +36,6 @@ export {
     EditUser,
     LoginPage,
     Extension,
-    AccountCategoriesList
+    AccountCategoriesList,
+    SingleAccountCategory
 };

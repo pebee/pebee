@@ -13,3 +13,7 @@ export const SAVE_USER_SUCCESS = 'PeBee/EditUser/SaveUserSuccess';
 export const SAVE_USER_FAILURE = 'PeBee/EditUser/SaveUserFailure';
 
 export const CLOSE_MESSAGE = 'PeBee/EditUser/CloseMessage';
+
+export const FETCH_ACCOUNT_CATEGORIES = 'PeBee/EditUser/FetchAccountCategories';
+export const FETCH_ACCOUNT_CATEGORIES_SUCCESS = 'PeBee/EditUser/FetchAccountCategoriesSuccess';
+export const FETCH_ACCOUNT_CATEGORIES_FAILURE = 'PeBee/EditUser/FetchAccountCategoriesFailure';

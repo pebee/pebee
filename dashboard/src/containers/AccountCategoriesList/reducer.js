@@ -14,7 +14,8 @@ import {
 
 const initialState = fromJS({
     accountCategories: [],
-    errorMessage: null
+    errorMessage: null,
+    loading: false
 });
 
 
@@ -24,17 +25,21 @@ const accountCategoriesListReducer = (state = initialState, action) => {
         case FETCH_ACCOUNT_CATEGORIES:
             return state
                 .set('accountCategories', [])
-                .set('errorMessage', null);
+                .set('errorMessage', null)
+                .set('loading', true);
 
         case FETCH_ACCOUNT_CATEGORIES_SUCCESS:
             return state
                 .set('accountCategories', action.data)
-                .set('errorMessage', null);
+                .set('errorMessage', null)
+                .set('loading', false);
 
         case FETCH_ACCOUNT_CATEGORIES_FAILURE:
             return state
                 .set('error', true)
-                .set('errorMessage', action.data);
+                .set('errorMessage', action.data)
+                .set('loading', false);
+                
         default:
             return state;
     }

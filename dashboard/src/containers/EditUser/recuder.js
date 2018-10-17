@@ -11,7 +11,9 @@ import {
     SAVE_USER_SUCCESS,
     SAVE_USER_FAILURE,
 
-    CLOSE_MESSAGE
+    CLOSE_MESSAGE,
+
+    FETCH_ACCOUNT_CATEGORIES_SUCCESS
 } from './constants';
 
 
@@ -19,7 +21,8 @@ const initialState = fromJS({
     user: {},
     loading: false,
     message: null,
-    messageType: 'success'
+    messageType: 'success',
+    accountCategories: []
 });
 
 
@@ -51,6 +54,9 @@ const editUserReducer = (state = initialState, action) => {
 
         case CLOSE_MESSAGE:
             return state.set('message', null);
+
+        case FETCH_ACCOUNT_CATEGORIES_SUCCESS:
+            return state.set('accountCategories', action.data);
             
         default:
             return state;

@@ -11,6 +11,9 @@ import {
     Icon
 } from 'antd';
 
+// Styles
+import Styles from './styles.scss';
+
 
 class AccountCategoriesTable extends React.Component {
 
@@ -42,14 +45,16 @@ class AccountCategoriesTable extends React.Component {
     renderPopconfirm = record => {
         let title = record.isDeleted ? 'pebee.accountCategories.restoreAccountCategory' : 'pebee.accountCategories.deleteAccountCategory',
             ok = record.isDeleted ? 'pebee.global.restore' : 'pebee.global.delete',
-            icon = record.isDeleted ? 'sync' : 'delete';
+            icon = record.isDeleted ? 'sync' : 'delete',
+            method = record.isDeleted ? this.props.restoreAccountCategory : this.props.deleteAccountCategory
 
 
         return !record.isProtected ? (
             <Popconfirm
                 title={this.props.intl.formatMessage({ id: title })}
                 okText={this.props.intl.formatMessage({ id: ok })}
-                cancelText={this.props.intl.formatMessage({ id: 'pebee.global.cancel' })}>
+                cancelText={this.props.intl.formatMessage({ id: 'pebee.global.cancel' })}
+                onConfirm={() => method(record.id)}>
                 <Icon
                     style={{ color: 'black', cursor: 'pointer' }}
                     type={icon}
@@ -62,7 +67,9 @@ class AccountCategoriesTable extends React.Component {
         return (
             <Table
                 columns={this.columns}
+                loading={this.props.loading}
                 dataSource={this.props.data}
+                rowClassName={(record) => record.isDeleted ? Styles.DeletedRow : ''}
                 rowKey={record => record.id} />
         )
     }

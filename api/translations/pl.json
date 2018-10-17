@@ -12,5 +12,8 @@
     "Error while performing the operation": "Błąd podczas wykonywania operacji",
 
     "pebee.users.createUserError": "Wystąpił błąd podczas tworzenia nowego uzytkownika",
-    "pebee.users.restoreUser": "Uzytkownik został przywrócony"
+    "pebee.users.restoreUser": "Uzytkownik został przywrócony",
+
+    "pebee.accountCategories.restoreAccountCategory": "Kategoria uzytkownika została przywrócona",
+    "pebee.accountCategories.notFound": "Wybrana kategoria uzytkownika nie istnieje"
 }

@@ -13,9 +13,14 @@ const addUser = (data) => {
     return axios.post(`/users`, data);
 }
 
+const getAccountCategories = () => {
+    return axios.get('/account_categories/all');
+}
+
 
 export {
     getUser,
     editUser,
-    addUser
+    addUser,
+    getAccountCategories
 };

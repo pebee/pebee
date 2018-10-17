@@ -1,8 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { FETCH_USER, SAVE_USER } from './constants';
-import { fetchUserFailure, fetchUserSuccess, saveUserSuccess, saveUserFailure } from './actions';
-import { getUser, editUser, addUser } from './api';
+import { FETCH_USER, SAVE_USER, FETCH_ACCOUNT_CATEGORIES } from './constants';
+
+import { fetchUserFailure, fetchUserSuccess, saveUserSuccess, saveUserFailure, fetchAccountCategoriesSuccess } from './actions';
+
+import { getUser, editUser, addUser, getAccountCategories } from './api';
 
 
 function* fetchUserSaga(action) {
@@ -35,10 +37,23 @@ function* saveUserSaga(action) {
 
 }
 
+function* fetchAccountCategoriesSaga() {
+
+    try {
+        const response = yield getAccountCategories();
+
+        yield put(fetchAccountCategoriesSuccess(response.data.data));
+    } catch (e) {
+        yield put();
+    }
+
+}
+
 
 function* editUserSaga() {
     yield takeLatest(FETCH_USER, fetchUserSaga);
     yield takeLatest(SAVE_USER, saveUserSaga);
+    yield takeLatest(FETCH_ACCOUNT_CATEGORIES, fetchAccountCategoriesSaga);
 }
 
 

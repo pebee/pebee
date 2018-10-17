@@ -18,7 +18,11 @@ import {
 import AccountCategoriesTable from './../../components/AccountCategoriesTable';
 
 // Actions
-import { fetchAccountCategories } from './actions';
+import {
+    fetchAccountCategories,
+    deleteAccountCategory,
+    restoreAccountCategory
+} from './actions';
 
 // Reducer
 import reducer from './reducer';
@@ -46,6 +50,14 @@ class AccountCategoriesList extends React.Component {
         }
     }
 
+    deleteAccountCategory = accountCategoryId => {
+        this.props.deleteAccountCategory(accountCategoryId);
+    }
+
+    restoreAccountCategory = accountCategoryId => {
+        this.props.restoreAccountCategory(accountCategoryId);
+    }
+
     goToAddNew = () => {
         this.props.history.push('/account-categories/add');
     }
@@ -64,7 +76,10 @@ class AccountCategoriesList extends React.Component {
                         onClick={this.goToAddNew}><FormattedMessage id="pebee.accountCategories.addNew" /></Button>
                 </Row>
                 <AccountCategoriesTable
-                    data={this.props.accountCategories} />
+                    data={this.props.accountCategories}
+                    loading={this.props.loading}
+                    restoreAccountCategory={this.restoreAccountCategory}
+                    deleteAccountCategory={this.deleteAccountCategory} />
             </div>
         );
     }
@@ -79,7 +94,10 @@ AccountCategoriesList.contextTypes = {
 
 AccountCategoriesList.propTypes = {
     accountCategories: PropTypes.array.isRequired,
-    fetchAccountCategories: PropTypes.func.isRequired
+    fetchAccountCategories: PropTypes.func.isRequired,
+    deleteAccountCategory: PropTypes.func.isRequired,
+    restoreAccountCategory: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
 
@@ -90,7 +108,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators(
         {
-            fetchAccountCategories
+            fetchAccountCategories,
+            deleteAccountCategory,
+            restoreAccountCategory
         },
         dispatch
     )

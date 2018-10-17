@@ -13,17 +13,23 @@ var router = _express.default.Router(); // check permission for basic CRUD opera
 
 
 router.all(/(^\/$)|(^\/(\d+|all)$)/, function (req, res, next) {
-  var permissionLabel = pebee.functions.generateCRUDPermissionLabel('account-categories', req.method);
+  if (req.method !== 'OPTIONS') {
+    var permissionLabel = pebee.functions.generateCRUDPermissionLabel('account-categories', req.method);
 
-  if (pebee.functions.validatePermission(req.user, permissionLabel)) {
-    next();
+    if (pebee.functions.validatePermission(req.user, permissionLabel)) {
+      next();
+    } else {
+      res.status(401).send(pebee.api.responses.notAuthorized());
+    }
   } else {
-    res.status(401).send(pebee.api.responses.notAuthorized());
+    next();
   }
 }); // return all account categories
 
 router.get('/all', function (req, res) {
-  pebee.models.AccountCategory.scope('withUsersCount').findAll().then(function (accountCategories) {
+  pebee.models.AccountCategory.scope('withUsersCount').findAll({
+    paranoid: false
+  }).then(function (accountCategories) {
     var mappedAccountCategories = accountCategories.map(function (accountCategory) {
       return accountCategory.serialize();
     });
@@ -32,7 +38,9 @@ router.get('/all', function (req, res) {
 }); // return single account category by given ID
 
 router.get('/:id', function (req, res) {
-  pebee.models.AccountCategory.scope(['withPermissions']).findById(req.params['id']).then(function (accountCategory) {
+  pebee.models.AccountCategory.scope(['withPermissions']).findById(req.params['id'], {
+    paranoid: false
+  }).then(function (accountCategory) {
     if (accountCategory) {
       res.send(pebee.api.responses.single(accountCategory.serialize()));
     } else {
@@ -69,7 +77,9 @@ router.put('/:id', function (req, res) {
   pebee.models.AccountCategory.findById(req.params['id']).then(function (accountCategory) {
     if (accountCategory) {
       accountCategory.update(req.body).then(function (self) {
-        res.send(pebee.api.responses.updated(self.serialize()));
+        self.setPermissions(req.body.permissions).then(function () {
+          res.send(pebee.api.responses.updated(self.serialize()));
+        });
       });
     } else {
       res.status(404).send(pebee.api.responses.notFound(_t('Account category does not exist'), {
@@ -98,6 +108,24 @@ router.delete('/:id', function (req, res) {
     res.status(400).send({
       message: _t('Error while deleting account category')
     });
+  });
+}); // restore specified account category
+
+router.put('/:id/restore', function (req, res) {
+  pebee.models.AccountCategory.findById(req.params['id'], {
+    paranoid: false
+  }).then(function (accountCategory) {
+    if (accountCategory) {
+      accountCategory.restore().then(function () {
+        res.send(pebee.api.responses.restored(_t('pebee.accountCategories.restoreAccountCategory')));
+      }).catch(function (e) {
+        res.status(400).send(pebee.api.responses.modelError(e));
+      });
+    } else {
+      res.status(404).send(pebee.api.responses.notFound(_t('pebee.accountCategories.notFound'), {
+        id: req.params['id']
+      }));
+    }
   });
 });
 var _default = router;

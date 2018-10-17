@@ -8,7 +8,8 @@ import {
     Form,
     Button,
     Input,
-    Icon
+    Icon,
+    Select
 } from 'antd';
 
 // Styles
@@ -26,6 +27,18 @@ class UserForm extends React.Component {
 
             this.props.submit(values);
         });
+    }
+
+    getAccountCategoryOptions = () => {
+        let options = [];
+
+        this.props.accountCategories.forEach(accountCategory => {
+            options.push(
+                <Select.Option key={accountCategory.id} value={accountCategory.id}>{accountCategory.name}</Select.Option>
+            );
+        });
+
+        return options;
     }
 
     render() {
@@ -65,6 +78,20 @@ class UserForm extends React.Component {
                         initialValue: this.props.user ? this.props.user.username : null
                     })(
                         <Input />
+                    )}
+                </Form.Item>
+                <Form.Item
+                    label="Kategoria"
+                    {...formItemLayout}>
+                    {getFieldDecorator('accountCategory', {
+                        rules: [
+                            { required: true, message: 'REQUIRED' }
+                        ],
+                        initialValue: this.props.user.accountCategory ? this.props.user.accountCategory.id : null
+                    })(
+                        <Select>
+                            {this.getAccountCategoryOptions()}
+                        </Select>
                     )}
                 </Form.Item>
                 <Form.Item>

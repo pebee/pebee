@@ -10,13 +10,13 @@ import { authorizeUser } from './../../utils/auth';
 import UserForm from './../../components/UserForm';
 
 // Ant Design
-import { Row, Col, Alert } from 'antd';
+import { Col, Alert } from 'antd';
 
 import withReducer from './../../utils/withReducer';
 import withSaga from './../../utils/withSaga';
 
 // Actions
-import { fetchUser, saveUser, closeMessage, resetUser } from './actions';
+import { fetchUser, saveUser, closeMessage, resetUser, fetchAccountCategories } from './actions';
 
 // Selector
 import editUserSelector from './selector';
@@ -34,6 +34,8 @@ import Styles from './styles.scss';
 class EditUser extends React.Component {
 
     componentWillMount() {
+        this.props.fetchAccountCategories();
+
         if (!authorizeUser(this.props.account, 'can-update-users')) {
             this.props.history.push('/');
         }
@@ -56,7 +58,8 @@ class EditUser extends React.Component {
                     <UserForm
                         user={this.props.user}
                         submit={this.props.saveUser}
-                        loading={this.props.loading} />
+                        loading={this.props.loading}
+                        accountCategories={this.props.accountCategories} />
                     { !!this.props.message ? (
                         <Alert
                             message={this.props.messageType === 'error' ? this.props.message : formatMessage({ id: this.props.message })}
@@ -82,13 +85,15 @@ EditUser.contextTypes = {
 
 EditUser.propTypes = {
     user: PropTypes.object.isRequired,
+    accountCategories: PropTypes.array.isRequired,
     saveUser: PropTypes.func.isRequired,
     fetchUser: PropTypes.func.isRequired,
     resetUser: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     message: PropTypes.string,
     messageType: PropTypes.string.isRequired,
-    closeMessage: PropTypes.func.isRequired
+    closeMessage: PropTypes.func.isRequired,
+    fetchAccountCategories: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -101,7 +106,8 @@ const mapDispatchToProps = dispatch => {
             fetchUser,
             saveUser,
             closeMessage,
-            resetUser
+            resetUser,
+            fetchAccountCategories
         },
         dispatch
     );
