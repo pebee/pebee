@@ -6,6 +6,7 @@ node_modules
 api/.env
 api/pebee-logs.log
 api/node_modules
+api/config/PeBee CMS-9323a200c5f1.json
 
 # Dashboard
 dashboard/dist
