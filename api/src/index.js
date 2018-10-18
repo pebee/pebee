@@ -8,6 +8,11 @@ import cookieParser from 'cookie-parser';
 
 import routers from './controllers';
 import { authorize } from './utils/api/auth';
+import GCS from './utils/storage';
+
+new GCS().getObjects('Media').then(res => {
+    console.log(res);
+});
 
 const app = express();
 

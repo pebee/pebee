@@ -26,7 +26,7 @@ const initialState = fromJS({
 });
 
 
-const editUserReducer = (state = initialState, action) => {
+const singleUserReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case FETCH_USER_SUCCESS:
@@ -43,7 +43,7 @@ const editUserReducer = (state = initialState, action) => {
         case SAVE_USER_SUCCESS:
             return state
                 .set('loading', false)
-                .set('message', 'pebee.editUser.successMessage')
+                .set('message', state.get('user').id ? 'pebee.singleUser.successMessage' : 'pebee.singleUser.userCreated')
                 .set('messageType', 'success');
 
         case SAVE_USER_FAILURE:
@@ -65,4 +65,4 @@ const editUserReducer = (state = initialState, action) => {
 }
 
 
-export default editUserReducer;
+export default singleUserReducer;

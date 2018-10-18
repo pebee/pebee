@@ -84,9 +84,8 @@ router.post('/', function (req, res) {
   pebee.models.User.create(req.body).then(function (user) {
     res.send(pebee.api.responses.created(user.serialize()));
   }).catch(function (e) {
-    res.status(422).send({
-      message: _t('pebee.users.createUserError')
-    });
+    pebee.logger.info(e);
+    res.status(422).send(pebee.api.responses.modelError(e));
   });
 });
 /**

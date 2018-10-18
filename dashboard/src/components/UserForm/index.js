@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
+import { omit } from 'lodash';
+
 
 // Ant Design
 import {
@@ -25,6 +27,8 @@ class UserForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (err) return;
 
+            values = omit(values, ['confirmPassword']);
+            
             this.props.submit(values);
         });
     }
@@ -39,6 +43,17 @@ class UserForm extends React.Component {
         });
 
         return options;
+    }
+
+    validateConfirmPassword = (rule, value, callback) => {
+        const { getFieldValue } = this.props.form;
+        const { formatMessage } = this.props.intl;
+
+        if ( value && value !== getFieldValue('password') ) {
+            callback(formatMessage({ id: 'pebee.singleUser.passwordMatchError' }));
+        }
+
+        callback();
     }
 
     render() {
@@ -69,13 +84,25 @@ class UserForm extends React.Component {
                     )}
                 </Form.Item>
                 <Form.Item
-                    label="Nazwa uzytkownika"
+                    label={formatMessage({ id: 'pebee.global.username' })}
                     {...formItemLayout}>
                     {getFieldDecorator('username', {
                         rules: [
-                            { required: true, message: formatMessage({ id: 'pebee.editUser.usernameIsRequired' }) }
+                            { required: true, message: formatMessage({ id: 'pebee.singleUser.usernameIsRequired' }) }
                         ],
                         initialValue: this.props.user ? this.props.user.username : null
+                    })(
+                        <Input />
+                    )}
+                </Form.Item>
+                <Form.Item
+                    label={formatMessage({ id: 'pebee.global.email' })}
+                    {...formItemLayout}>
+                    {getFieldDecorator('email', {
+                        rules: [
+                            { required: true, message: formatMessage({ id: 'pebee.singleUser.emailIsRequired' }) }
+                        ],
+                        initialValue: this.props.user ? this.props.user.email : null
                     })(
                         <Input />
                     )}
@@ -85,7 +112,7 @@ class UserForm extends React.Component {
                     {...formItemLayout}>
                     {getFieldDecorator('accountCategory', {
                         rules: [
-                            { required: true, message: 'REQUIRED' }
+                            { required: true, message: formatMessage({ id: 'pebee.singleUser.categoryIsRequired' }) }
                         ],
                         initialValue: this.props.user.accountCategory ? this.props.user.accountCategory.id : null
                     })(
@@ -94,6 +121,37 @@ class UserForm extends React.Component {
                         </Select>
                     )}
                 </Form.Item>
+                {
+                    !this.props.user.id ?
+                        <Form.Item
+                            label={formatMessage({ id: 'pebee.global.password' })}
+                            {...formItemLayout}>
+                            {getFieldDecorator('password', {
+                                rules: [
+                                    { required: true, message: formatMessage({ id: 'pebee.singleUser.passwordIsRequired' }) }
+                                ]
+                            })(
+                                <Input type="password" />
+                            )}
+                        </Form.Item>
+                    : null
+                }
+                {
+                    !this.props.user.id ?
+                        <Form.Item
+                            label={formatMessage({ id: 'pebee.singleUser.confirmPassword' })}
+                            {...formItemLayout}>
+                            {getFieldDecorator('confirmPassword', {
+                                rules: [
+                                    { required: true, message: formatMessage({ id: 'pebee.singleUser.confirmPasswordIsRequired' }) },
+                                    { validator: this.validateConfirmPassword }
+                                ]
+                            })(
+                                <Input type="password" />
+                            )}
+                        </Form.Item>
+                    : null
+                }
                 <Form.Item>
                     <Button
                         className={Styles.SubmitButton}

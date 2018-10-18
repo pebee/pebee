@@ -11,6 +11,8 @@
     "pebee.db.foreignKeyConstraintError": "Powiązany obiekt nie istnieje",
     "Error while performing the operation": "Błąd podczas wykonywania operacji",
 
+    "pebee.user.emailIsRequired": "Adres e-mail jest obowiązkowy",
+
     "pebee.users.createUserError": "Wystąpił błąd podczas tworzenia nowego uzytkownika",
     "pebee.users.restoreUser": "Uzytkownik został przywrócony",
 

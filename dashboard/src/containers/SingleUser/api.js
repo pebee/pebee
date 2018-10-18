@@ -5,7 +5,7 @@ const getUser = id => {
     return axios.get(`/users/${id}`);
 }
 
-const editUser = (data) => {
+const singleUser = (data) => {
     return axios.put(`/users/${data.id}`, data);
 }
 
@@ -20,7 +20,7 @@ const getAccountCategories = () => {
 
 export {
     getUser,
-    editUser,
+    singleUser,
     addUser,
     getAccountCategories
 };

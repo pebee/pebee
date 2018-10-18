@@ -16,7 +16,7 @@ import {
     Extension,
 
     Users,
-    EditUser,
+    SingleUser,
 
     AccountCategoriesList,
     SingleAccountCategory
@@ -53,8 +53,8 @@ class App extends React.Component {
                         <Route path="/extensions/:slug" component={Extension} />
 
                         <Route exact path="/users" component={Users} />
-                        <Route exact path="/users/add" component={EditUser} />
-                        <Route path="/users/edit/:id" component={EditUser} />
+                        <Route exact path="/users/add" component={SingleUser} />
+                        <Route path="/users/edit/:id" component={SingleUser} />
 
                         <Route exact path="/account-categories" component={AccountCategoriesList} />
                         <Route exact path="/account-categories/add" component={SingleAccountCategory} />

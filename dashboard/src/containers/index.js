@@ -17,8 +17,8 @@ const Users = importedComponent(
     () => import(/* webpackChunkName:'Users' */ './Users')
 );
 
-const EditUser = importedComponent(
-    () => import(/* webpackChunkName:'EditUser' */ './EditUser')
+const SingleUser = importedComponent(
+    () => import(/* webpackChunkName:'SingleUser' */ './SingleUser')
 );
 
 const AccountCategoriesList = importedComponent(
@@ -32,10 +32,14 @@ const SingleAccountCategory = importedComponent(
 
 export {
     Home,
+
     Users,
-    EditUser,
+    SingleUser,
+
     LoginPage,
+
     Extension,
+    
     AccountCategoriesList,
     SingleAccountCategory
 };

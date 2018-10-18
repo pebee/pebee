@@ -19,7 +19,7 @@ import withSaga from './../../utils/withSaga';
 import { fetchUser, saveUser, closeMessage, resetUser, fetchAccountCategories } from './actions';
 
 // Selector
-import editUserSelector from './selector';
+import selector from './selector';
 
 // Saga
 import saga from './saga';
@@ -31,7 +31,7 @@ import reducer from './recuder';
 import Styles from './styles.scss';
 
 
-class EditUser extends React.Component {
+class SingleUser extends React.Component {
 
     componentWillMount() {
         this.props.fetchAccountCategories();
@@ -46,7 +46,7 @@ class EditUser extends React.Component {
     }
 
     render() {
-        let headerId = this.props.user.id ? 'pebee.editUser.editUser' : 'pebee.addUser.addUser';
+        let headerId = this.props.user.id ? 'pebee.singleUser.singleUser' : 'pebee.addUser.addUser';
         const { formatMessage } = this.props.intl;
 
         return (
@@ -79,11 +79,11 @@ class EditUser extends React.Component {
 
 }
 
-EditUser.contextTypes = {
+SingleUser.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
-EditUser.propTypes = {
+SingleUser.propTypes = {
     user: PropTypes.object.isRequired,
     accountCategories: PropTypes.array.isRequired,
     saveUser: PropTypes.func.isRequired,
@@ -97,7 +97,7 @@ EditUser.propTypes = {
 };
 
 const mapStateToProps = state => {
-    return editUserSelector(state);
+    return selector(state);
 };
 
 const mapDispatchToProps = dispatch => {
@@ -114,12 +114,12 @@ const mapDispatchToProps = dispatch => {
 };
 
 const includeConnect = connect(mapStateToProps, mapDispatchToProps);
-const includeReducer = withReducer('editUser', reducer);
-const includeSaga = withSaga('editUser', saga);
+const includeReducer = withReducer('singleUser', reducer);
+const includeSaga = withSaga('singleUser', saga);
 
 
 export default compose(
     includeReducer,
     includeSaga,
     includeConnect
-)(injectIntl(EditUser));
+)(injectIntl(SingleUser));

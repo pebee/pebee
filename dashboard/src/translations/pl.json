@@ -4,6 +4,9 @@
     "pebee.global.restore": "Przywróć",
     "pebee.global.cancel": "Anuluj",
     "pebee.global.permissions": "Uprawnienia",
+    "pebee.global.password": "Hasło",
+    "pebee.global.username": "Nazwa uzytkownika",
+    "pebee.global.email": "Adres e-mail",
 
     "pebee.permissions.can-view-users": "Moze wyświetlać uzytkowników",
     "pebee.permissions.can-add-users": "Moze dodawać uzytkowników",
@@ -32,10 +35,17 @@
     "pebee.users.deleteUser": "Czy chcesz usunąć tego uzytkownika?",
     "pebee.users.restoreUser": "Czy chcesz przywrócić tego uzytkownika?",
 
-    "pebee.editUser.editUser": "Edytuj uzytkownika",
-    "pebee.editUser.successMessage": "Dane uzytkownika zostały zaktualizowane",
-    "pebee.editUser.errorMessage": "Wystąpił błąd podczas aktualizacji uzytkownika",
-    "pebee.editUser.usernameIsRequired": "Nazwa uzytkownika jest obowiązkowa",
+    "pebee.singleUser.singleUser": "Edytuj uzytkownika",
+    "pebee.singleUser.successMessage": "Dane uzytkownika zostały zaktualizowane",
+    "pebee.singleUser.userCreated": "Nowy uzytkownik został utworzony",
+    "pebee.singleUser.errorMessage": "Wystąpił błąd podczas aktualizacji uzytkownika",
+    "pebee.singleUser.usernameIsRequired": "Nazwa uzytkownika jest obowiązkowa",
+    "pebee.singleUser.passwordIsRequired": "Hasło jest obowiązkowe",
+    "pebee.singleUser.categoryIsRequired": "Kategoria jest obowiązkowa",
+    "pebee.singleUser.confirmPassword": "Potwierdzenie hasła",
+    "pebee.singleUser.confirmPasswordIsRequired": "Potwierdzenie hasła jest obowiązkowe",
+    "pebee.singleUser.passwordMatchError": "Hasło i jego potwierdzenie muszą być identyczne",
+    "pebee.singleUser.emailIsRequired": "Adres e-mail jest obowiązkowy",
 
     "pebee.addUser.addUser": "Dodaj uzytkownika",
 

@@ -14,8 +14,6 @@ var logger = _winston.default.createLogger({
   format: _winston.default.format.json(),
   transports: [new _winston.default.transports.File({
     filename: 'pebee-logs.log'
-  }), new _winston.default.transports.Console({
-    level: 'debug'
   })]
 });
 

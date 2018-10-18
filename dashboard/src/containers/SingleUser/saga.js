@@ -4,7 +4,7 @@ import { FETCH_USER, SAVE_USER, FETCH_ACCOUNT_CATEGORIES } from './constants';
 
 import { fetchUserFailure, fetchUserSuccess, saveUserSuccess, saveUserFailure, fetchAccountCategoriesSuccess } from './actions';
 
-import { getUser, editUser, addUser, getAccountCategories } from './api';
+import { getUser, singleUser, addUser, getAccountCategories } from './api';
 
 
 function* fetchUserSaga(action) {
@@ -25,7 +25,7 @@ function* saveUserSaga(action) {
         let response;
 
         if (action.data.id && Number.isInteger(parseInt(action.data.id))) {
-            response = yield editUser(action.data);
+            response = yield singleUser(action.data);
         } else {
             response = yield addUser(action.data);
         }
@@ -50,11 +50,11 @@ function* fetchAccountCategoriesSaga() {
 }
 
 
-function* editUserSaga() {
+function* singleUserSaga() {
     yield takeLatest(FETCH_USER, fetchUserSaga);
     yield takeLatest(SAVE_USER, saveUserSaga);
     yield takeLatest(FETCH_ACCOUNT_CATEGORIES, fetchAccountCategoriesSaga);
 }
 
 
-export default editUserSaga;
+export default singleUserSaga;

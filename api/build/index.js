@@ -12,9 +12,14 @@ var _controllers = _interopRequireDefault(require("./controllers"));
 
 var _auth = require("./utils/api/auth");
 
+var _storage = _interopRequireDefault(require("./utils/storage"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Parsers
+new _storage.default().getObjects('Media').then(function (res) {
+  console.log(res);
+});
 var app = (0, _express.default)();
 app.listen(process.env.API_PORT, function () {
   console.log('PeBeeCMS API listening on port ' + process.env.API_PORT);

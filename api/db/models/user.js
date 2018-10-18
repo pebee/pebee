@@ -16,8 +16,9 @@ module.exports = (sequelize, DataTypes) => {
             },
             email: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                unique: true,
+                allowNull: {
+                    msg: _t('pebee.user.emailIsRequired')
+                },
                 validate: {
                     isEmail: { msg: _t('Please provide valid e-mail') }
                 }
