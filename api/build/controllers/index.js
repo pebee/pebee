@@ -15,6 +15,8 @@ var _accountCategory = _interopRequireDefault(require("./accountCategory"));
 
 var _permission = _interopRequireDefault(require("./permission"));
 
+var _storage = _interopRequireDefault(require("./storage"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express.default.Router();
@@ -22,6 +24,7 @@ var router = _express.default.Router();
 router.use('/users', _user.default);
 router.use('/account_categories', _accountCategory.default);
 router.use('/permissions', _permission.default);
+router.use('/storage', _storage.default);
 router.use('/', _auth.default);
 var _default = router;
 exports.default = _default;

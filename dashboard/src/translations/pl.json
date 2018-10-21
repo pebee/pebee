@@ -7,6 +7,9 @@
     "pebee.global.password": "Hasło",
     "pebee.global.username": "Nazwa uzytkownika",
     "pebee.global.email": "Adres e-mail",
+    "pebee.global.media": "Media",
+    "pebee.global.close": "Zamknij",
+    "pebee.global.create": "Utwórz",
 
     "pebee.permissions.can-view-users": "Moze wyświetlać uzytkowników",
     "pebee.permissions.can-add-users": "Moze dodawać uzytkowników",
@@ -55,5 +58,14 @@
     "pebee.accountCategories.restoreAccountCategory": "Czy chcesz przywrócić wybraną kategorię?",
     "pebee.accountCategories.deleteAccountCategory": "Czy chcesz usunąć wybraną kategorię?",
     "pebee.accountCategories.addAccountCategory": "Dodaj kategorię uzytkownika",
-    "pebee.accountCategories.editAccountCategory": "Edytuj kategorię uzytkownika"
+    "pebee.accountCategories.editAccountCategory": "Edytuj kategorię uzytkownika",
+
+    "pebee.media.files": "Pliki",
+    "pebee.media.sendFiles": "Prześlij pliki",
+    "pebee.media.sendFilesSuccess": "Pliki zostały przesłane",
+    "pebee.media.sendFilesFailure": "Wystąpił błąd podczas przesyłania plików",
+    "pebee.media.clickOrDrag": "Klinij lub przeciągnij tutaj pliki",
+    "pebee.media.clickOrDragInfo": "Mozesz jednoczesnie dodać kilka plików",
+    "pebee.media.addFolder": "Utwórz katalog",
+    "pebee.media.folderName": "Nazwa katalogu"
 }

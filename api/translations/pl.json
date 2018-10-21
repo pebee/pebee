@@ -11,6 +11,9 @@
     "pebee.db.foreignKeyConstraintError": "Powiązany obiekt nie istnieje",
     "Error while performing the operation": "Błąd podczas wykonywania operacji",
 
+    "pebee.storage.folderCreateError": "Wystąpił bład podczas tworzenia katalogu",
+    "pebee.storage.folderCreateSuccess": "Katalog został utworzony",
+
     "pebee.user.emailIsRequired": "Adres e-mail jest obowiązkowy",
 
     "pebee.users.createUserError": "Wystąpił błąd podczas tworzenia nowego uzytkownika",

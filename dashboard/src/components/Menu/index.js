@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 
@@ -44,6 +43,7 @@ class SideMenu extends React.Component {
                     { canAddUsers ? <Menu.Item key="/users/add">{formatMessage({ id: 'pebee.home.addNewUser' })}</Menu.Item> : null }
                     { canViewAccountCategories ? <Menu.Item key="/account-categories">{formatMessage({ id: 'pebee.home.accountCategories' })}</Menu.Item> : null }
                 </Menu.SubMenu>
+                <Menu.Item key="/media"><Icon type="folder" />{formatMessage({ id: 'pebee.global.media' })}</Menu.Item>
             </Menu>
         );
     }

@@ -64,7 +64,6 @@ var authorize = function authorize(req, res, next) {
         throw new Error();
       }
     } catch (e) {
-      pebee.logger.info(e);
       res.clearCookie('authorizationToken', {
         httpOnly: true
       });

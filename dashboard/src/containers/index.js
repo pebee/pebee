@@ -29,6 +29,10 @@ const SingleAccountCategory = importedComponent(
     () => import(/* webpackChunkName:'SingleAccountCategory' */ './SingleAccountCategory')
 );
 
+const Media = importedComponent(
+    () => import(/* webpackChunkName:'Media' */ './Media')
+);
+
 
 export {
     Home,
@@ -41,5 +45,7 @@ export {
     Extension,
     
     AccountCategoriesList,
-    SingleAccountCategory
+    SingleAccountCategory,
+
+    Media
 };

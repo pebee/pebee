@@ -1,21 +1,9 @@
-.mainRow {
-    height: 100%;
-
-    .ContentRow {
-        margin-top: 45px;
-
-        > .HeaderRow {
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-        }
-
-        .DeletedRow {
-            background: #FFC1C1;
-        }
-    }
+.MainLayout {
+    height: 100vh;
 }
 
-.sideMenuCol {
-    height: 100%;
+.Logo {
+    height: 32px;
+    background: rgba(0, 0, 0, .2);
+    margin: 16px;
 }

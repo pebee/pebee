@@ -1,0 +1,20 @@
+.FileContainer {
+    width: 150px;
+    float: left;
+    margin: 15px 15px 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+
+    &:hover {
+        i {
+            color: red;
+        }
+
+        span {
+            font-weight: bold;
+        }
+    }
+}

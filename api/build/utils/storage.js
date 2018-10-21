@@ -7,11 +7,20 @@ exports.default = void 0;
 
 var _storage = require("./../../config/storage");
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var GCSFile = function GCSFile(file, name) {
+  _classCallCheck(this, GCSFile);
+
+  this.fullName = file.name;
+  this.name = name;
+  this.createDate = file.metadata.timeCreated;
+  this.contentType = file.metadata.contentType;
+};
 
 var GoogleCloudStorage =
 /*#__PURE__*/
@@ -43,11 +52,12 @@ function () {
 
           if (objectWithoutDir === '') return;
           var objectNameArray = objectWithoutDir.split('/');
+          var gcsFile = new GCSFile(object, objectNameArray[0]);
 
           if (objectNameArray.length === 1) {
-            files.push(object);
+            files.push(gcsFile);
           } else if (objectNameArray.length === 2 && object.name.endsWith('/')) {
-            folders.push(object);
+            folders.push(gcsFile);
           }
         });
         return {

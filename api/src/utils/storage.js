@@ -3,6 +3,18 @@
 import { storage, bucket } from './../../config/storage';
 
 
+class GCSFile {
+
+    constructor(file, name) {
+        this.fullName = file.name;
+        this.name = name;
+        this.createDate = file.metadata.timeCreated;
+        this.contentType = file.metadata.contentType;
+    }
+
+}
+
+
 class GoogleCloudStorage {
 
     constructor() {
@@ -30,10 +42,12 @@ class GoogleCloudStorage {
 
                 let objectNameArray = objectWithoutDir.split('/');
 
+                let gcsFile = new GCSFile(object, objectNameArray[0]);
+
                 if (objectNameArray.length === 1) {
-                    files.push(object);
+                    files.push(gcsFile);
                 } else if (objectNameArray.length === 2 && object.name.endsWith('/')) {
-                    folders.push(object);
+                    folders.push(gcsFile);
                 }
             });
 

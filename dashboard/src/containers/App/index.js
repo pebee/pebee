@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 // Ant Design
 import {
     Row,
-    Col
+    Col,
+    Layout
 } from 'antd';
 
 import {
@@ -19,7 +20,9 @@ import {
     SingleUser,
 
     AccountCategoriesList,
-    SingleAccountCategory
+    SingleAccountCategory,
+
+    Media
 } from './../index';
 
 import Authorized from './../../components/Auth';
@@ -35,33 +38,42 @@ import withReducer from './../../utils/withReducer';
 import Styles from './styles.scss';
 
 
+const { Header, Content, Sider, Footer } = Layout;
 
 
 class App extends React.Component {
 
     render() {
         return (
-            <Row className={Styles.mainRow}>
-                <Col span={4} className={Styles.sideMenuCol}>
-                    <SideMenu
-                        user={this.props.loggedInUser.toJS()}
-                        history={this.context.router.history} />
-                </Col>
-                <Col span={18} offset={1}>
-                    <Row className={Styles.ContentRow}>
-                        <Route exact path="/" component={Home} />
-                        <Route path="/extensions/:slug" component={Extension} />
+            <Layout className={Styles.MainLayout}>
+                <Layout>
+                    <Sider width={200}>
+                        <div className='logo' />
+                        <SideMenu
+                            user={this.props.loggedInUser.toJS()}
+                            history={this.context.router.history} />
+                    </Sider>
+                    <Layout style={{ padding: '24px 24px 24px' }}>
+                        <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+                            <Route exact path="/" component={Home} />
+                            <Route path="/extensions/:slug" component={Extension} />
 
-                        <Route exact path="/users" component={Users} />
-                        <Route exact path="/users/add" component={SingleUser} />
-                        <Route path="/users/edit/:id" component={SingleUser} />
+                            <Route exact path="/users" component={Users} />
+                            <Route exact path="/users/add" component={SingleUser} />
+                            <Route path="/users/edit/:id" component={SingleUser} />
 
-                        <Route exact path="/account-categories" component={AccountCategoriesList} />
-                        <Route exact path="/account-categories/add" component={SingleAccountCategory} />
-                        <Route exact path="/account-categories/edit/:id" component={SingleAccountCategory} />
-                    </Row>
-                </Col>
-            </Row>
+                            <Route exact path="/account-categories" component={AccountCategoriesList} />
+                            <Route exact path="/account-categories/add" component={SingleAccountCategory} />
+                            <Route exact path="/account-categories/edit/:id" component={SingleAccountCategory} />
+
+                            <Route exact path="/media" component={Media} />
+                        </Content>
+                        <Footer style={{ textAlign: 'center' }}>
+                            PeBee® 2018 Created by Piotr Bienias
+                        </Footer>
+                    </Layout>
+                </Layout>
+            </Layout>
         );
     }
 

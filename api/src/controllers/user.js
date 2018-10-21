@@ -89,7 +89,6 @@ router.post('/', (req, res) => {
     pebee.models.User.create(req.body).then(user => {
         res.send(pebee.api.responses.created(user.serialize()));
     }).catch(e => {
-        pebee.logger.info(e);
         res.status(422).send(pebee.api.responses.modelError(e));
     });
 

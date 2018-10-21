@@ -68,7 +68,6 @@ export const authorize = (req, res, next) => {
                 throw new Error();
             }
         } catch (e) {
-            pebee.logger.info(e);
             res.clearCookie('authorizationToken', { httpOnly: true });
             res.status(401).send(pebee.api.responses.notAuthorized());
         }

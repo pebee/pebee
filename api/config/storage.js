@@ -12,6 +12,8 @@ const storage = new GCS({
 
 const bucket = storage.bucket(process.env.GCS_BUCKET);
 
+bucket.enableRequesterPays();
+
 
 
 module.exports = {
