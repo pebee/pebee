@@ -31,8 +31,84 @@ function () {
     this.storage = _storage.storage;
     this.bucket = _storage.bucket;
   }
+  /**
+   * Download given file from GCS
+   * 
+   * @param {String} filename Full name of file to be downloaded
+   */
+
 
   _createClass(GoogleCloudStorage, [{
+    key: "downloadFile",
+    value: function downloadFile(filename) {
+      var bucketFile = this.bucket.file(filename);
+
+      if (bucketFile) {
+        return bucketFile.download().then(function (result) {
+          return result[0];
+        });
+      } else {
+        return new Promise(function (resolve, reject) {
+          reject('File does not exist');
+        });
+      }
+    }
+    /**
+     * Upload multiple files
+     * 
+     * @param {Array} files Array of files
+     * @param {String} directory Name of directory to which files will be uploaded
+     */
+
+  }, {
+    key: "uploadFiles",
+    value: function uploadFiles(files, directory) {
+      var _this = this;
+
+      files.forEach(function (file) {
+        var bucketFile = _this.bucket.file(directory + file.originalname);
+
+        var bucketFileStream = bucketFile.createWriteStream({
+          contentType: 'auto',
+          resumable: false
+        });
+        bucketFileStream.on('error', function (err) {
+          throw err;
+        });
+        bucketFileStream.on('finish', function () {});
+        bucketFileStream.end(file.buffer);
+      });
+    }
+    /**
+     * Create new directory with name <newDir> with it's base <baseDir>
+     * e.g. baseDir = 'Media/Users' and newDir = 'user#1' will create 'Media/Users/user#1' folder
+     * 
+     * @param {String} baseDir Base path of new folder
+     * @param {String} newDir Name of new folder
+     */
+
+  }, {
+    key: "createDirectory",
+    value: function createDirectory(baseDir, newDir) {
+      var bucketFilename = baseDir && baseDir !== '' ? baseDir + newDir : newDir;
+      bucketFilename += '/';
+      var bucketFile = this.bucket.file(bucketFilename);
+      var bucketFileStream = bucketFile.createWriteStream({
+        contentType: 'auto'
+      });
+      bucketFileStream.on('error', function (err) {
+        throw err;
+      });
+      bucketFileStream.on('finish', function () {});
+      bucketFileStream.end();
+    }
+    /**
+     * Return all files and folders from given directory
+     * 
+     * @param {String} directory Name of the directory to be read from
+     */
+
+  }, {
     key: "getObjects",
     value: function getObjects() {
       var directory = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';

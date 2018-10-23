@@ -13,6 +13,9 @@
 
     "pebee.storage.folderCreateError": "Wystąpił bład podczas tworzenia katalogu",
     "pebee.storage.folderCreateSuccess": "Katalog został utworzony",
+    "pebee.storage.fileUploadSuccess": "Pliki zostały przesłane",
+    "pebee.storage.fileUploadFailure": "Wystąpił błąd podczas dodawania pliku",
+    "pebee.storage.fileDownloadFailure": "Wystąpił błąd podczas pobierania pliku",
 
     "pebee.user.emailIsRequired": "Adres e-mail jest obowiązkowy",
 

@@ -3,7 +3,6 @@
 import express from 'express';
 import GoogleCloudStorage from './../utils/storage';
 import multer from 'multer';
-import { bucket } from './../../config/storage';
 
 
 const router = express.Router();
@@ -11,6 +10,7 @@ const GCS = new GoogleCloudStorage();
 const upload = multer();
 
 
+// get all files from given directory
 router.get('/files', (req, res) => {
 
     GCS.getObjects(req.query['directory']).then(files => {
@@ -20,44 +20,44 @@ router.get('/files', (req, res) => {
 });
 
 
+// download file
+router.get('/download', (req, res) => {
 
-router.post('/upload', upload.array('files'), (req, res, next) => {
-
-    req.files.forEach(file => {
-        let bucketFile = bucket.file(req.body['directory'] + file.originalname);
-
-        let bucketFileStream = bucketFile.createWriteStream({
-            contentType: 'auto',
-            resumable: false
-        });
-
-        bucketFileStream.on('error', err => { return res.status(400).send(err) });
-        bucketFileStream.on('finish', () => {});
-        bucketFileStream.end(file.buffer);
+    GCS.downloadFile(req.query['filename']).then(content => {
+        res.send(content);
+    }).catch(e => {
+        pebee.logger.info(e);
+        res.status(400).send({ message: _t('pebee.storage.fileDownloadFailure') });
     });
-
-    res.send(req.body);
 
 });
 
 
+
+// upload files
+router.post('/upload', upload.array('files'), (req, res, next) => {
+
+    try {
+        GCS.uploadFiles(req.files, req.body['directory']);
+        res.send({ message: _t('pebee.storage.fileUploadSuccess') });
+    } catch (e) {
+        res.status(400).send({ message: _t('pebee.storage.fileUploadFailure') });
+    }
+
+});
+
+
+// create new directory
 router.post('/create_dir', (req, res) => {
 
-    let bucketFile = bucket.file(req.body['directory'] + req.body['newDir'] + '/');
-    
-    let bucketFileStream = bucketFile.createWriteStream({
-        contentType: 'auto'
-    });
+    try {
+        GCS.createDirectory(req.body['directory'], req.body['newDir']);
+        res.send({ message: _t('pebee.storage.folderCreateSuccess') });
+    } catch (e) {
+        res.status(400).send({ message: _t('pebee.storage.folderCreateError') });
+    }
 
-    bucketFileStream.on('error', err => {
-        return res.status(400).send({ message: _t('pebee.storage.folderCreateError') });
-    });
-    bucketFileStream.on('finish', () => {});
-    bucketFileStream.end();
-
-    res.send({ message: _t('pebee.storage.folderCreateSuccess') });
-
-})
+});
 
 
 export default router;

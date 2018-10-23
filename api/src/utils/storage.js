@@ -22,6 +22,78 @@ class GoogleCloudStorage {
         this.bucket = bucket;
     }
 
+    /**
+     * Download given file from GCS
+     * 
+     * @param {String} filename Full name of file to be downloaded
+     */
+    downloadFile(filename) {
+
+        let bucketFile = this.bucket.file(filename);
+
+        if (bucketFile) {
+            return bucketFile.download().then(result => {
+                return result[0];
+            });
+        } else {
+            return new Promise((resolve, reject) => {
+                reject('File does not exist');
+            });
+        }
+
+    }
+
+    /**
+     * Upload multiple files
+     * 
+     * @param {Array} files Array of files
+     * @param {String} directory Name of directory to which files will be uploaded
+     */
+    uploadFiles(files, directory) {
+
+        files.forEach(file => {
+
+            let bucketFile = this.bucket.file(directory + file.originalname);
+
+            let bucketFileStream = bucketFile.createWriteStream({
+                contentType: 'auto',
+                resumable: false
+            });
+
+            bucketFileStream.on('error', err => { throw err });
+            bucketFileStream.on('finish', () => {});
+            bucketFileStream.end(file.buffer);
+
+        });
+
+    }
+
+    /**
+     * Create new directory with name <newDir> with it's base <baseDir>
+     * e.g. baseDir = 'Media/Users' and newDir = 'user#1' will create 'Media/Users/user#1' folder
+     * 
+     * @param {String} baseDir Base path of new folder
+     * @param {String} newDir Name of new folder
+     */
+    createDirectory(baseDir, newDir) {
+        let bucketFilename = (baseDir && baseDir !== '') ? baseDir + newDir : newDir;
+        bucketFilename += '/';
+
+        let bucketFile = this.bucket.file(bucketFilename);
+        let bucketFileStream = bucketFile.createWriteStream({
+            contentType: 'auto'
+        });
+
+        bucketFileStream.on('error', err => { throw err });
+        bucketFileStream.on('finish', () => {});
+        bucketFileStream.end();
+    }
+
+    /**
+     * Return all files and folders from given directory
+     * 
+     * @param {String} directory Name of the directory to be read from
+     */
     getObjects(directory = '') {
 
         if ( ! directory.endsWith('/') && directory !== '' ) {

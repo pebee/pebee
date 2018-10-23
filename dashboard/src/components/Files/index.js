@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { orderBy } from 'lodash';
 
 // Ant Design
 import {
-    Icon
+    Icon,
+    Dropdown,
+    Menu
 } from 'antd';
 
 // Styles
@@ -39,6 +42,20 @@ class Files extends React.Component {
 
     }
 
+    downloadFile = (e) => {
+        this.props.downloadFile(e.key);
+    }
+
+    fileMenu = (fileName) => {
+        return (
+            <Menu onClick={this.downloadFile}>
+                <Menu.Item key={fileName}>
+                    <span><FormattedMessage id="pebee.global.download" /></span>
+                </Menu.Item>
+            </Menu>
+        );
+    }
+
     getFolders = () => {
         let folders = [];
         let sortedFolders = orderBy(this.props.folders, f => { return f.name.toLowerCase() }, 'asc');
@@ -61,9 +78,13 @@ class Files extends React.Component {
 
         sortedFiles.forEach(file => {
             files.push(
-                <div key={file.name} className={Styles.FileContainer}>
-                    <Icon type={this.getIconByContentType(file.contentType)} theme="outlined" style={{ fontSize: '24px' }} />
-                    <span style={{ fontSize: '12px' }}>{file.name}</span>
+                <div key={file.name} style={{ float: 'left' }}>
+                    <Dropdown overlay={this.fileMenu(file.fullName)} trigger={['click']}>
+                        <div className={Styles.FileContainer}>
+                            <Icon type={this.getIconByContentType(file.contentType)} theme="outlined" style={{ fontSize: '24px' }} />
+                            <span style={{ fontSize: '12px' }}>{file.name}</span>
+                        </div>
+                    </Dropdown>
                 </div>
             )
         });

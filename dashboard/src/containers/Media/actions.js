@@ -8,6 +8,8 @@ import {
     FETCH_FILES_FAILURE,
     FETCH_FILES_SUCCESS,
 
+    UPLOAD_FILE_SUCCESS,
+    UPLOAD_FILE_FAILURE,
     SHOW_UPLOAD_FILE_MODAL,
     HIDE_UPLOAD_FILE_MODAL,
 
@@ -17,7 +19,13 @@ import {
     CREATE_FOLDER,
     CREATE_FOLDER_FAILURE,
     CREATE_FOLDER_SUCCESS,
-    UPDATE_NEW_FOLDER_NAME
+    UPDATE_NEW_FOLDER_NAME,
+
+    HIDE_MESSAGE,
+
+    DOWNLOAD_FILE,
+    DOWNLOAD_FILE_FAILURE,
+    DOWNLOAD_FILE_SUCCESS
 } from './constants';
 
 
@@ -44,7 +52,7 @@ export const fetchFilesFailure = () => {
 };
 
 
-/* UPLOAD FILE MODAL */
+/* UPLOAD FILE */
 export const showUploadFileModal = () => {
     return {
         type: SHOW_UPLOAD_FILE_MODAL
@@ -54,6 +62,20 @@ export const showUploadFileModal = () => {
 export const hideUploadFileModal = () => {
     return {
         type: HIDE_UPLOAD_FILE_MODAL
+    }
+};
+
+export const uploadFileSuccess = data => {
+    return {
+        type: UPLOAD_FILE_SUCCESS,
+        data
+    }
+};
+
+export const uploadFileFailure = data => {
+    return {
+        type: UPLOAD_FILE_FAILURE,
+        data
     }
 };
 
@@ -98,6 +120,39 @@ export const createFolderFailure = data => {
 export const updateNewFolderName = data => {
     return {
         type: UPDATE_NEW_FOLDER_NAME,
+        data
+    }
+};
+
+
+
+/* MESSAGE */
+export const hideMessage = () => {
+    return {
+        type: HIDE_MESSAGE
+    }
+};
+
+
+
+/* DOWNLOAD FILE */
+export const downloadFile = data => {
+    return {
+        type: DOWNLOAD_FILE,
+        data
+    }
+};
+
+export const downloadFileSuccess = data => {
+    return {
+        type: DOWNLOAD_FILE_SUCCESS,
+        data
+    }
+};
+
+export const downloadFileFailure = data => {
+    return {
+        type: DOWNLOAD_FILE_FAILURE,
         data
     }
 };

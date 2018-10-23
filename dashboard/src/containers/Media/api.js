@@ -10,3 +10,7 @@ export const getFiles = directory => {
 export const addFolder = data => {
     return axios.post('/storage/create_dir', data);
 };
+
+export const downloadFile = fileName => {
+    return axios.get(`/storage/download?filename=${fileName}sss`, { responseType: 'arraybuffer' });
+};

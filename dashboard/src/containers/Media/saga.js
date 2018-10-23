@@ -7,8 +7,8 @@ import {
     createFolderSuccess
 } from './actions';
 
-import { FETCH_FILES, CREATE_FOLDER } from './constants';
-import { getFiles, addFolder } from './api';
+import { FETCH_FILES, CREATE_FOLDER, DOWNLOAD_FILE } from './constants';
+import { getFiles, addFolder, downloadFile } from './api';
 
 
 function* fetchFilesSaga(action) {
@@ -35,10 +35,28 @@ function* createFolderSaga(action) {
 
 }
 
+function* downloadFileSaga(action) {
+
+    console.log('here');
+    console.log(action);
+
+    try {
+        const response = yield downloadFile(action.data);
+
+        console.log(response);
+
+        yield put();
+    } catch (e) {
+        yield put();
+    }
+
+}
+
 
 function* mediaSaga() {
     yield takeLatest(FETCH_FILES, fetchFilesSaga);
     yield takeLatest(CREATE_FOLDER, createFolderSaga);
+    yield takeLatest(DOWNLOAD_FILE, downloadFileSaga);
 }
 
 

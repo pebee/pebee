@@ -11,51 +11,54 @@ var _storage = _interopRequireDefault(require("./../utils/storage"));
 
 var _multer = _interopRequireDefault(require("multer"));
 
-var _storage2 = require("./../../config/storage");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express.default.Router();
 
 var GCS = new _storage.default();
-var upload = (0, _multer.default)();
+var upload = (0, _multer.default)(); // get all files from given directory
+
 router.get('/files', function (req, res) {
   GCS.getObjects(req.query['directory']).then(function (files) {
     res.send(pebee.api.responses.single(files));
   });
-});
+}); // download file
+
+router.get('/download', function (req, res) {
+  GCS.downloadFile(req.query['filename']).then(function (content) {
+    res.send(content);
+  }).catch(function (e) {
+    pebee.logger.info(e);
+    res.status(400).send({
+      message: _t('pebee.storage.fileDownloadFailure')
+    });
+  });
+}); // upload files
+
 router.post('/upload', upload.array('files'), function (req, res, next) {
-  req.files.forEach(function (file) {
-    var bucketFile = _storage2.bucket.file(req.body['directory'] + file.originalname);
+  try {
+    GCS.uploadFiles(req.files, req.body['directory']);
+    res.send({
+      message: _t('pebee.storage.fileUploadSuccess')
+    });
+  } catch (e) {
+    res.status(400).send({
+      message: _t('pebee.storage.fileUploadFailure')
+    });
+  }
+}); // create new directory
 
-    var bucketFileStream = bucketFile.createWriteStream({
-      contentType: 'auto',
-      resumable: false
-    });
-    bucketFileStream.on('error', function (err) {
-      return res.status(400).send(err);
-    });
-    bucketFileStream.on('finish', function () {});
-    bucketFileStream.end(file.buffer);
-  });
-  res.send(req.body);
-});
 router.post('/create_dir', function (req, res) {
-  var bucketFile = _storage2.bucket.file(req.body['directory'] + req.body['newDir'] + '/');
-
-  var bucketFileStream = bucketFile.createWriteStream({
-    contentType: 'auto'
-  });
-  bucketFileStream.on('error', function (err) {
-    return res.status(400).send({
+  try {
+    GCS.createDirectory(req.body['directory'], req.body['newDir']);
+    res.send({
+      message: _t('pebee.storage.folderCreateSuccess')
+    });
+  } catch (e) {
+    res.status(400).send({
       message: _t('pebee.storage.folderCreateError')
     });
-  });
-  bucketFileStream.on('finish', function () {});
-  bucketFileStream.end();
-  res.send({
-    message: _t('pebee.storage.folderCreateSuccess')
-  });
+  }
 });
 var _default = router;
 exports.default = _default;

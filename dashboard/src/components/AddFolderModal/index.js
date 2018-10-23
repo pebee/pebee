@@ -28,6 +28,7 @@ class AddFolderModal extends React.Component {
                     </Button>
                 ]}>
                 <Input
+                    required="required"
                     placeholder={formatMessage({ id: 'pebee.media.folderName' })}
                     onChange={this.props.onChange}
                     value={this.props.newFolderName} />

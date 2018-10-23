@@ -13,7 +13,8 @@ import withSaga from './../../utils/withSaga';
 import {
     Breadcrumb,
     Icon,
-    Button
+    Button,
+    message
 } from 'antd';
 
 // Files component
@@ -35,7 +36,11 @@ import {
     createFolder,
     showAddFolderModal,
     hideAddFolderModal,
-    updateNewFolderName
+    updateNewFolderName,
+
+    hideMessage,
+
+    downloadFile
 } from './actions';
 
 // Selector
@@ -57,8 +62,22 @@ class Media extends React.Component {
         this.props.fetchFiles();
     }
 
+    closeAddFolderModal = () => {
+        this.props.fetchFiles(this.props.directory);
+        this.props.hideAddFolderModal();
+    }
+
+    closeUploadFileModal = () => {
+        this.props.fetchFiles(this.props.directory);
+        this.props.hideUploadFileModal();
+    }
+
     componentDidUpdate(prevProps, prevState) {
         let query = queryString.parse(this.props.location.search);
+
+        if (this.props.message && this.props.message !== '') {
+            message[this.props.messageType](this.props.message).then(this.props.hideMessage());
+        }
 
         if (query.dir !== this.props.directory) {
             this.props.fetchFiles(query.dir);
@@ -70,12 +89,14 @@ class Media extends React.Component {
     }
 
     createFolder = () => {
-        let data = {
-            directory: this.props.directory,
-            newDir: this.props.newFolderName
-        };
+        if (this.props.newFolderName && this.props.newFolderName !== '') {
+            let data = {
+                directory: this.props.directory,
+                newDir: this.props.newFolderName
+            };
 
-        this.props.createFolder(data);
+            this.props.createFolder(data);
+        }
     }
 
     getBreadcrumbs = () => {
@@ -107,11 +128,11 @@ class Media extends React.Component {
             <div>
                 <UploadFileModal
                     visible={this.props.uploadFileModal}
-                    closeModal={this.props.hideUploadFileModal}
+                    closeModal={this.closeUploadFileModal}
                     directory={this.props.directory} />
 
                 <AddFolderModal
-                    closeModal={this.props.hideAddFolderModal}
+                    closeModal={this.closeAddFolderModal}
                     submit={this.createFolder}
                     visible={this.props.addFolderModal}
                     directory={this.props.directory}
@@ -135,7 +156,8 @@ class Media extends React.Component {
                 <Files
                     folders={this.props.files.folders}
                     files={this.props.files.files}
-                    changeFolder={this.goToFolder} />
+                    changeFolder={this.goToFolder}
+                    downloadFile={this.props.downloadFile} />
             </div>
         )
     }
@@ -160,7 +182,13 @@ Media.propTypes = {
     showAddFolderModal: PropTypes.func.isRequired,
     hideAddFolderModal: PropTypes.func.isRequired,
     newFolderName: PropTypes.string.isRequired,
-    updateNewFolderName: PropTypes.func.isRequired
+    updateNewFolderName: PropTypes.func.isRequired,
+
+    hideMessage: PropTypes.func.isRequired,
+    message: PropTypes.string,
+    messageType: PropTypes.string,
+    
+    downloadFile: PropTypes.func.isRequired
 };
 
 
@@ -179,7 +207,11 @@ const mapDispatchToProps = dispatch => {
             createFolder,
             showAddFolderModal,
             hideAddFolderModal,
-            updateNewFolderName
+            updateNewFolderName,
+
+            hideMessage,
+
+            downloadFile
         },
         dispatch
     )
