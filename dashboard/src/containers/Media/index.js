@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import queryString from 'query-string';
 import { Link } from 'react-router-dom';
+import fileDownload from 'js-file-download';
 
 import withReducer from './../../utils/withReducer';
 import withSaga from './../../utils/withSaga';
@@ -30,17 +31,19 @@ import AddFolderModal from './../../components/AddFolderModal';
 import {
     fetchFiles,
 
-    showUploadFileModal,
-    hideUploadFileModal,
+    toggleUploadFileModal,
 
     createFolder,
-    showAddFolderModal,
-    hideAddFolderModal,
+    toggleAddFolderModal,
     updateNewFolderName,
 
     hideMessage,
 
-    downloadFile
+    downloadFile,
+    resetDownloadFile,
+
+    toggleDeleteFilePopconfirm,
+    deleteFile
 } from './actions';
 
 // Selector
@@ -64,12 +67,12 @@ class Media extends React.Component {
 
     closeAddFolderModal = () => {
         this.props.fetchFiles(this.props.directory);
-        this.props.hideAddFolderModal();
+        this.props.toggleAddFolderModal();
     }
 
     closeUploadFileModal = () => {
         this.props.fetchFiles(this.props.directory);
-        this.props.hideUploadFileModal();
+        this.props.toggleUploadFileModal();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -81,6 +84,11 @@ class Media extends React.Component {
 
         if (query.dir !== this.props.directory) {
             this.props.fetchFiles(query.dir);
+        }
+
+        if (this.props.fileDownloadContent) {
+            fileDownload(this.props.fileDownloadContent, this.props.downloadFileName);
+            this.props.resetDownloadFile();
         }
     }
 
@@ -144,10 +152,10 @@ class Media extends React.Component {
                         <FormattedMessage id="pebee.media.files" />
                     </h1>
                     <Button
-                        onClick={this.props.showUploadFileModal}
+                        onClick={this.props.toggleUploadFileModal}
                         type="primary"><FormattedMessage id="pebee.media.sendFiles" /></Button>
                     <Button
-                        onClick={this.props.showAddFolderModal}
+                        onClick={this.props.toggleAddFolderModal}
                         type="primary"><FormattedMessage id="pebee.media.addFolder" /></Button>
                 </div>
                 <Breadcrumb>
@@ -157,7 +165,11 @@ class Media extends React.Component {
                     folders={this.props.files.folders}
                     files={this.props.files.files}
                     changeFolder={this.goToFolder}
-                    downloadFile={this.props.downloadFile} />
+                    downloadFile={this.props.downloadFile}
+                    toggleDeleteFilePopconfirm={this.props.toggleDeleteFilePopconfirm}
+                    deleteFilePopconfirm={this.props.deleteFilePopconfirm}
+                    deleteFile={this.props.deleteFile}
+                    spinning={this.props.spinning} />
             </div>
         )
     }
@@ -169,18 +181,18 @@ Media.contextTypes = {
 };
 
 Media.propTypes = {
+    spinning: PropTypes.bool.isRequired,
+
     files: PropTypes.object.isRequired,
     message: PropTypes.string,
     directory: PropTypes.string,
 
     uploadFileModal: PropTypes.bool.isRequired,
-    showUploadFileModal: PropTypes.func.isRequired,
-    hideUploadFileModal: PropTypes.func.isRequired,
+    toggleUploadFileModal: PropTypes.func.isRequired,
 
     createFolder: PropTypes.func.isRequired,
     addFolderModal: PropTypes.bool.isRequired,
-    showAddFolderModal: PropTypes.func.isRequired,
-    hideAddFolderModal: PropTypes.func.isRequired,
+    toggleAddFolderModal: PropTypes.func.isRequired,
     newFolderName: PropTypes.string.isRequired,
     updateNewFolderName: PropTypes.func.isRequired,
 
@@ -188,7 +200,14 @@ Media.propTypes = {
     message: PropTypes.string,
     messageType: PropTypes.string,
     
-    downloadFile: PropTypes.func.isRequired
+    downloadFile: PropTypes.func.isRequired,
+    downloadFileName: PropTypes.string.isRequired,
+    fileDownloadContent: PropTypes.any,
+    resetDownloadFile: PropTypes.func.isRequired,
+
+    toggleDeleteFilePopconfirm: PropTypes.func.isRequired,
+    deleteFilePopconfirm: PropTypes.bool.isRequired,
+    deleteFile: PropTypes.func.isRequired
 };
 
 
@@ -201,17 +220,19 @@ const mapDispatchToProps = dispatch => {
         {
             fetchFiles,
 
-            showUploadFileModal,
-            hideUploadFileModal,
+            toggleUploadFileModal,
 
             createFolder,
-            showAddFolderModal,
-            hideAddFolderModal,
+            toggleAddFolderModal,
             updateNewFolderName,
 
             hideMessage,
 
-            downloadFile
+            downloadFile,
+            resetDownloadFile,
+
+            toggleDeleteFilePopconfirm,
+            deleteFile
         },
         dispatch
     )

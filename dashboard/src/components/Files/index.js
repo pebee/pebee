@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { orderBy } from 'lodash';
 
@@ -8,7 +8,9 @@ import { orderBy } from 'lodash';
 import {
     Icon,
     Dropdown,
-    Menu
+    Menu,
+    Popconfirm,
+    Spin
 } from 'antd';
 
 // Styles
@@ -42,15 +44,40 @@ class Files extends React.Component {
 
     }
 
-    downloadFile = (e) => {
-        this.props.downloadFile(e.key);
+    downloadFile = (e, file) => {
+
+        switch(e.key) {
+            case 'download':
+                return this.props.downloadFile({ fullName: file.fullName, filename: file.name });
+
+            case 'delete':
+                return this.props.toggleDeleteFilePopconfirm();
+
+            default:
+                return;
+        }
+
     }
 
-    fileMenu = (fileName) => {
+    fileMenu = (file) => {
+        const { formatMessage } = this.props.intl;
+        const { deleteFile } = this.props;
+
         return (
-            <Menu onClick={this.downloadFile}>
-                <Menu.Item key={fileName}>
+            <Menu onClick={(e) => { e.domEvent.preventDefault(); this.downloadFile(e, file); }}>
+                <Menu.Item key="download">
                     <span><FormattedMessage id="pebee.global.download" /></span>
+                </Menu.Item>
+                <Menu.Item key="delete">
+                    <Popconfirm
+                        visible={this.props.deleteFilePopconfirm}
+                        title={formatMessage({ id: 'pebee.media.confirmDelete' })}
+                        onConfirm={() => deleteFile({ filename: file.fullName })}
+                        onCancel={() => console.log('canceled')}
+                        okText={formatMessage({ id: 'pebee.global.delete' })}
+                        cancelText={formatMessage({ id: 'pebee.global.no' })}>
+                        <span><FormattedMessage id="pebee.global.delete" /></span>
+                    </Popconfirm>
                 </Menu.Item>
             </Menu>
         );
@@ -79,7 +106,7 @@ class Files extends React.Component {
         sortedFiles.forEach(file => {
             files.push(
                 <div key={file.name} style={{ float: 'left' }}>
-                    <Dropdown overlay={this.fileMenu(file.fullName)} trigger={['click']}>
+                    <Dropdown overlay={this.fileMenu(file)} trigger={['click']}>
                         <div className={Styles.FileContainer}>
                             <Icon type={this.getIconByContentType(file.contentType)} theme="outlined" style={{ fontSize: '24px' }} />
                             <span style={{ fontSize: '12px' }}>{file.name}</span>
@@ -94,10 +121,12 @@ class Files extends React.Component {
 
     render() {
         return (
-            <div style={{ display: 'inline-block' }}>
-                {this.getFolders()}
-                {this.getFiles()}
-            </div>
+            <Spin spinning={this.props.spinning}>
+                <div style={{ display: 'inline-block' }}>
+                    {this.getFolders()}
+                    {this.getFiles()}
+                </div>
+            </Spin>
         )
     }
 
@@ -105,9 +134,14 @@ class Files extends React.Component {
 
 
 Files.propTypes = {
+    spinning: PropTypes.bool.isRequired,
     files: PropTypes.array.isRequired,
-    folders: PropTypes.array.isRequired
+    folders: PropTypes.array.isRequired,
+
+    downloadFile: PropTypes.func.isRequired,
+    deleteFilePopconfirm: PropTypes.bool.isRequired,
+    toggleDeleteFilePopconfirm: PropTypes.func.isRequired
 };
 
 
-export default Files;
+export default injectIntl(Files);

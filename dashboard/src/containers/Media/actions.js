@@ -10,22 +10,25 @@ import {
 
     UPLOAD_FILE_SUCCESS,
     UPLOAD_FILE_FAILURE,
-    SHOW_UPLOAD_FILE_MODAL,
-    HIDE_UPLOAD_FILE_MODAL,
-
-    SHOW_ADD_FOLDER_MODAL,
-    HIDE_ADD_FOLDER_MODAL,
+    TOGGLE_UPLOAD_FILE_MODAL,
 
     CREATE_FOLDER,
     CREATE_FOLDER_FAILURE,
     CREATE_FOLDER_SUCCESS,
     UPDATE_NEW_FOLDER_NAME,
+    TOGGLE_ADD_FOLDER_MODAL,
 
     HIDE_MESSAGE,
 
     DOWNLOAD_FILE,
     DOWNLOAD_FILE_FAILURE,
-    DOWNLOAD_FILE_SUCCESS
+    DOWNLOAD_FILE_SUCCESS,
+    RESET_DOWNLOAD_FILE,
+
+    TOGGLE_DELETE_POPCONFIRM,
+    DELETE_FILE,
+    DELETE_FILE_SUCCESS,
+    DELETE_FILE_FAILURE
 } from './constants';
 
 
@@ -53,15 +56,9 @@ export const fetchFilesFailure = () => {
 
 
 /* UPLOAD FILE */
-export const showUploadFileModal = () => {
+export const toggleUploadFileModal = () => {
     return {
-        type: SHOW_UPLOAD_FILE_MODAL
-    }
-};
-
-export const hideUploadFileModal = () => {
-    return {
-        type: HIDE_UPLOAD_FILE_MODAL
+        type: TOGGLE_UPLOAD_FILE_MODAL
     }
 };
 
@@ -81,18 +78,11 @@ export const uploadFileFailure = data => {
 
 
 /* ADD FOLDER MODAL */
-export const showAddFolderModal = () => {
+export const toggleAddFolderModal = () => {
     return {
-        type: SHOW_ADD_FOLDER_MODAL
+        type: TOGGLE_ADD_FOLDER_MODAL
     }
 };
-
-export const hideAddFolderModal = () => {
-    return {
-        type: HIDE_ADD_FOLDER_MODAL
-    }
-};
-
 
 
 /* CREATE FOLDER API CALL */
@@ -117,6 +107,7 @@ export const createFolderFailure = data => {
     }
 };
 
+// it is called on Input field change to update name of directory being created
 export const updateNewFolderName = data => {
     return {
         type: UPDATE_NEW_FOLDER_NAME,
@@ -126,7 +117,7 @@ export const updateNewFolderName = data => {
 
 
 
-/* MESSAGE */
+/* INFORMATIONAL MESSAGE HANDLE */
 export const hideMessage = () => {
     return {
         type: HIDE_MESSAGE
@@ -153,6 +144,41 @@ export const downloadFileSuccess = data => {
 export const downloadFileFailure = data => {
     return {
         type: DOWNLOAD_FILE_FAILURE,
+        data
+    }
+};
+
+export const resetDownloadFile = () => {
+    return {
+        type: RESET_DOWNLOAD_FILE
+    }
+};
+
+
+/* DELETE FILE */
+export const toggleDeleteFilePopconfirm = () => {
+    return {
+        type: TOGGLE_DELETE_POPCONFIRM
+    }
+};
+
+export const deleteFile = data => {
+    return {
+        type: DELETE_FILE,
+        data
+    }
+};
+
+export const deleteFileSuccess = data => {
+    return {
+        type: DELETE_FILE_SUCCESS,
+        data
+    }
+};
+
+export const deleteFileFailure = data => {
+    return {
+        type: DELETE_FILE_FAILURE,
         data
     }
 };

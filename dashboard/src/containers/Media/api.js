@@ -12,5 +12,9 @@ export const addFolder = data => {
 };
 
 export const downloadFile = fileName => {
-    return axios.get(`/storage/download?filename=${fileName}sss`, { responseType: 'arraybuffer' });
+    return axios.get(`/storage/download?filename=${fileName}`, { responseType: 'arraybuffer' });
+};
+
+export const deleteFile = data => {
+    return axios.post('/storage/delete', data);
 };

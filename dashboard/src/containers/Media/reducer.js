@@ -11,36 +11,63 @@ import {
 
     UPLOAD_FILE_SUCCESS,
     UPLOAD_FILE_FAILURE,
-    SHOW_UPLOAD_FILE_MODAL,
-    HIDE_UPLOAD_FILE_MODAL,
+    TOGGLE_UPLOAD_FILE_MODAL,
 
     CREATE_FOLDER_SUCCESS,
     CREATE_FOLDER_FAILURE,
-    SHOW_ADD_FOLDER_MODAL,
-    HIDE_ADD_FOLDER_MODAL,
+    TOGGLE_ADD_FOLDER_MODAL,
 
     UPDATE_NEW_FOLDER_NAME,
 
-    HIDE_MESSAGE
+    HIDE_MESSAGE,
+
+    DOWNLOAD_FILE_SUCCESS,
+    RESET_DOWNLOAD_FILE,
+    DOWNLOAD_FILE,
+    DOWNLOAD_FILE_FAILURE,
+
+    TOGGLE_DELETE_POPCONFIRM,
+    DELETE_FILE_SUCCESS,
+    DELETE_FILE_FAILURE
 } from './constants';
 
 
 const initialState = fromJS({
+    // spinner
+    spinning: false,
+
+    // all files and folders being shown
     files: {
         files: [],
         folders: []
     },
 
+    // current directory
     directory: null,
 
+    // message to be shown
     message: null,
+
+    // type of message to be shown
     messageType: 'info',
 
+    // if show upload file modal
     uploadFileModal: false,
 
+    // if show add folder modal
     addFolderModal: false,
     
-    newFolderName: ''
+    // name of new directory being created
+    newFolderName: '',
+
+    // name of file being downloaded
+    downloadFileName: '',
+
+    // contents of downloaded file
+    fileDownloadContent: null,
+
+    // if show delete file popconfirm
+    deleteFilePopconfirm: false
 });
 
 
@@ -50,27 +77,26 @@ const mediaReducer = (state = initialState, action) => {
         /* fetching files */
         case FETCH_FILES:
             return state
-                .set('directory', action.data);
+                .set('directory', action.data)
+                .set('spinning', true);
 
         case FETCH_FILES_SUCCESS:
             return state
                 .set('files', Map(action.data))
-                .set('message', null);
+                .set('message', null)
+                .set('spinning', false);
 
         case FETCH_FILES_FAILURE:
             return state
                 .set('files', Map({ files: [], folders: [] }))
-                .set('message', action.data);
+                .set('message', action.data)
+                .set('spinning', false);
 
         /* uploading files */
-        case SHOW_UPLOAD_FILE_MODAL:
+        case TOGGLE_UPLOAD_FILE_MODAL:
             return state
                 .set('addFolderModal', false)
-                .set('uploadFileModal', true);
-
-        case HIDE_UPLOAD_FILE_MODAL:
-            return state
-                .set('uploadFileModal', false);
+                .set('uploadFileModal', !state.get('uploadFileModal'));
 
         case UPLOAD_FILE_SUCCESS:
             return state
@@ -93,15 +119,11 @@ const mediaReducer = (state = initialState, action) => {
                 .set('message', action.data)
                 .set('messageType', 'error');
 
-        case SHOW_ADD_FOLDER_MODAL:
+        case TOGGLE_ADD_FOLDER_MODAL:
             return state
                 .set('uploadFileModal', false)
-                .set('addFolderModal', true);
-
-        case HIDE_ADD_FOLDER_MODAL:
-            return state
-                .set('newFolderName', '')
-                .set('addFolderModal', false);
+                .set('addFolderModal', !state.get('addFolderModal'))
+                .set('newFolderName', '');
 
         case UPDATE_NEW_FOLDER_NAME:
             return state
@@ -112,6 +134,36 @@ const mediaReducer = (state = initialState, action) => {
             return state
                 .set('message', null)
                 .set('messageType', 'info');
+
+        /* file download */
+        case DOWNLOAD_FILE:
+            return state
+                .set('downloadFileName', action.data.filename);
+
+        case DOWNLOAD_FILE_SUCCESS:
+            return state
+                .set('fileDownloadContent', action.data);
+
+        case DOWNLOAD_FILE_FAILURE:
+        case RESET_DOWNLOAD_FILE:
+            return state
+                .set('fileDownloadContent', null)
+                .set('downloadFileName', '');
+
+        /* file delete */
+        case TOGGLE_DELETE_POPCONFIRM:
+            return state
+                .set('deleteFilePopconfirm', !state.get('deleteFilePopconfirm'));
+
+        case DELETE_FILE_SUCCESS:
+            return state
+                .set('message', action.data)
+                .set('messageType', 'success');
+
+        case DELETE_FILE_FAILURE:
+            return state
+                .set('message', action.data)
+                .set('messageType', 'error');
 
         default:
             return state;

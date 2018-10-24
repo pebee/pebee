@@ -11,6 +11,7 @@
     "pebee.global.close": "Zamknij",
     "pebee.global.create": "Utwórz",
     "pebee.global.download": "Pobierz",
+    "pebee.global.no": "Nie",
 
     "pebee.permissions.can-view-users": "Moze wyświetlać uzytkowników",
     "pebee.permissions.can-add-users": "Moze dodawać uzytkowników",
@@ -68,5 +69,6 @@
     "pebee.media.clickOrDrag": "Klinij lub przeciągnij tutaj pliki",
     "pebee.media.clickOrDragInfo": "Mozesz jednoczesnie dodać kilka plików",
     "pebee.media.addFolder": "Utwórz katalog",
-    "pebee.media.folderName": "Nazwa katalogu"
+    "pebee.media.folderName": "Nazwa katalogu",
+    "pebee.media.confirmDelete": "Czy chcesz usunąć ten plik?"
 }
