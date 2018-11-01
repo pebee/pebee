@@ -33,6 +33,10 @@ const Media = importedComponent(
     () => import(/* webpackChunkName:'Media' */ './Media')
 );
 
+const Options = importedComponent(
+    () => import(/* webpackChunkName:'Options' */ './Options')
+);
+
 
 export {
     Home,
@@ -47,5 +51,7 @@ export {
     AccountCategoriesList,
     SingleAccountCategory,
 
-    Media
+    Media,
+
+    Options
 };

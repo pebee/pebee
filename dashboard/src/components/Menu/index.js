@@ -38,12 +38,13 @@ class SideMenu extends React.Component {
                 onClick={this.handleClick}>
                 <Menu.SubMenu
                     key="users"
-                    title={<span><Icon type="user" /> {formatMessage({ id: 'pebee.home.users' })}</span>}>
+                    title={<span><Icon type="user" />{formatMessage({ id: 'pebee.home.users' })}</span>}>
                     { canViewUsers ? <Menu.Item key="/users">{formatMessage({ id: 'pebee.home.usersList' })}</Menu.Item> : null }
                     { canAddUsers ? <Menu.Item key="/users/add">{formatMessage({ id: 'pebee.home.addNewUser' })}</Menu.Item> : null }
                     { canViewAccountCategories ? <Menu.Item key="/account-categories">{formatMessage({ id: 'pebee.home.accountCategories' })}</Menu.Item> : null }
                 </Menu.SubMenu>
                 <Menu.Item key="/media"><Icon type="folder" />{formatMessage({ id: 'pebee.global.media' })}</Menu.Item>
+                <Menu.Item key="/options"><Icon type="setting" />{formatMessage({ id: 'pebee.global.settings' })}</Menu.Item>
             </Menu>
         );
     }

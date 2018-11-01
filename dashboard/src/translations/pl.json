@@ -12,6 +12,7 @@
     "pebee.global.create": "Utwórz",
     "pebee.global.download": "Pobierz",
     "pebee.global.no": "Nie",
+    "pebee.global.settings": "Ustawienia",
 
     "pebee.permissions.can-view-users": "Moze wyświetlać uzytkowników",
     "pebee.permissions.can-add-users": "Moze dodawać uzytkowników",
@@ -70,5 +71,12 @@
     "pebee.media.clickOrDragInfo": "Mozesz jednoczesnie dodać kilka plików",
     "pebee.media.addFolder": "Utwórz katalog",
     "pebee.media.folderName": "Nazwa katalogu",
-    "pebee.media.confirmDelete": "Czy chcesz usunąć ten plik?"
+    "pebee.media.confirmDelete": "Czy chcesz usunąć ten plik?",
+
+    "pebee.options.lang": "Język",
+    "pebee.options.langIsRequired": "Wybór języka jest obowiązkowy",
+    "pebee.options.systemOptions": "Ustawienia systemowe",
+    "pebee.options.required": "To ustawienie jest obowiązkowe",
+    "pebee.options.pl": "Polski",
+    "pebee.options.en": "Angielski"
 }

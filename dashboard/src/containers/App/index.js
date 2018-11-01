@@ -22,7 +22,9 @@ import {
     AccountCategoriesList,
     SingleAccountCategory,
 
-    Media
+    Media,
+
+    Options
 } from './../index';
 
 import Authorized from './../../components/Auth';
@@ -67,6 +69,8 @@ class App extends React.Component {
                             <Route exact path="/account-categories/edit/:id" component={SingleAccountCategory} />
 
                             <Route exact path="/media" component={Media} />
+
+                            <Route exact path="/options" component={Options} />
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>
                             PeBee® 2018 Created by Piotr Bienias

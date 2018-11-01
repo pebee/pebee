@@ -7,10 +7,12 @@ import { fromJS, Map } from 'immutable';
 import { FETCH_ACCOUNT_FAILURE, FETCH_ACCOUNT_SUCCESS } from './constants';
 import { LOGIN_SUCCESS } from './../Login/constants';
 
+let account = JSON.parse(localStorage.getItem('account'));
+
 
 const initialState = fromJS({
-    isLoggedIn: !!localStorage.getItem('account'),
-    loggedInUser: Map(JSON.parse(localStorage.getItem('account')))
+    isLoggedIn: !!account,
+    loggedInUser: (account && account !== '') ? Map(account) : null
 });
 
 
