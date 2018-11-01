@@ -78,7 +78,7 @@ var restored = function restored(message) {
 exports.restored = restored;
 
 var notAuthorized = function notAuthorized(message) {
-  message = message ? message : 'You are not authorized to perform this operation';
+  message = message ? message : 'pebee.global.notAuthorized';
   return {
     statusCode: 401,
     message: _t(message)

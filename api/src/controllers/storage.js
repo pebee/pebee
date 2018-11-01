@@ -33,6 +33,19 @@ router.get('/download', (req, res) => {
 });
 
 
+// delete file
+router.post('/delete', (req, res) => {
+
+    GCS.deleteFile(req.body['filename']).then(() => {
+        res.send({ message: _t('pebee.storage.fileDeleteSuccess') });
+    }).catch(e => {
+        pebee.logger.info(e);
+        res.status(400).send({ message: _t('pebee.storage.fileDeleteFailure') });
+    });
+
+});
+
+
 
 // upload files
 router.post('/upload', upload.array('files'), (req, res, next) => {

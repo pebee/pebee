@@ -1,27 +1,47 @@
 {
-    "Account category does not exist": "Kategoria uzytkownika nie istnieje",
-    "Example": "Przykład",
-    "Please provide valid e-mail": "Proszę podać prawidłowy adres e-mail",
-    "User does not exist": "Uzytkownik nie istnieje",
-    "Invalid username or password": "Nieprawidłowa nazwa uzytkownika lub hasło",
-    "You are not authorized to perform this operation": "Nie jesteś uprawniony do wykonania tej operacji",
-    "This username is already in use": "Uzytkownik o tej nazwie juz istnieje",
+    "pebee.global.example": "Przykład",
+    "pebee.global.notAuthorized": "Nie jesteś uprawniony do wykonania tej operacji",
+    "pebee.global.operationError": "Wystąpił błąd podczas wykonywania operacji",
+    "pebee.global.passwordAndEmailRequiredToLogin": "Nazwa uzytkownika i hasło są obowiązkowe podczas logowania",
+
     "pebee.db.error": "Błąd podczas wykonywania operacji",
     "pebee.db.accountCategoryDoesNotExist": "Wybrana kategoria uzytkownika nie istnieje",
     "pebee.db.foreignKeyConstraintError": "Powiązany obiekt nie istnieje",
-    "Error while performing the operation": "Błąd podczas wykonywania operacji",
 
     "pebee.storage.folderCreateError": "Wystąpił bład podczas tworzenia katalogu",
     "pebee.storage.folderCreateSuccess": "Katalog został utworzony",
     "pebee.storage.fileUploadSuccess": "Pliki zostały przesłane",
     "pebee.storage.fileUploadFailure": "Wystąpił błąd podczas dodawania pliku",
     "pebee.storage.fileDownloadFailure": "Wystąpił błąd podczas pobierania pliku",
+    "pebee.storage.fileDeleteFailure": "Wystąpił błąd podczas usuwania pliku",
+    "pebee.storage.fileDeleteSuccess": "Plik został usunięty",
+    "pebee.storage.fileDoesNotExist": "Plik nie istnieje",
 
-    "pebee.user.emailIsRequired": "Adres e-mail jest obowiązkowy",
-
+    "pebee.users.emailIsRequired": "Adres e-mail jest obowiązkowy",
+    "pebee.users.validEmail": "Proszę podać prawidłowy adres e-mail",
+    "pebee.users.doesNotExist": "Uzytkownik nie istnieje",
+    "pebee.users.invalidUsernameOrPassword": "Nieprawidłowa nazwa uzytkownika lub hasło",
+    "pebee.users.usernameTaken": "Uzytkownik o tej nazwie juz istnieje",
     "pebee.users.createUserError": "Wystąpił błąd podczas tworzenia nowego uzytkownika",
     "pebee.users.restoreUser": "Uzytkownik został przywrócony",
+    "pebee.users.errorWhileUpdating": "Wystąpił błąd podczas aktualizacji uzytkownika",
+    "pebee.users.errorWhileRestoring": "Wystąpił błąd podczas przywracania uzytkownika",
+    "pebee.users.errorWhileDeleting": "Wystąpił błąd podczas usuwania uzytkownika",
+    "pebee.users.deleteSuccess": "Uzytkownik został pomyślnie usunięty",
 
+    "pebee.accountCategories.errorWhileCreating": "Wystąpił błąd podczas tworzenia kategorii",
+    "pebee.accountCategories.errorWhileUpdating": "Wystąpił błąd podczas aktualizacji kategorii",
+    "pebee.accountCategories.errorWhileDeleting": "Wystąpił błąd podczas usuwania kategorii",
+    "pebee.accountCategories.deleteSuccess": "Kategoria została usunięta",
     "pebee.accountCategories.restoreAccountCategory": "Kategoria uzytkownika została przywrócona",
-    "pebee.accountCategories.notFound": "Wybrana kategoria uzytkownika nie istnieje"
+    "pebee.accountCategories.notFound": "Wybrana kategoria uzytkownika nie istnieje",
+    "pebee.accountCategories.doesNotExist": "Kategoria uzytkownika nie istnieje",
+
+    "pebee.options.notFound": "Poszukiwana opcja nie istnieje",
+    "pebee.options.lang": "Język",
+    "pebee.options.forbidDeleteProtected": "Ta opcja jest chroniona",
+    "pebee.options.deleteSuccess": "Opcja została pomyślnie usunięta",
+    "pebee.options.valueRequired": "Pole 'value' jest obowiązkowe",
+    "pebee.options.pl": "Polski",
+    "pebee.options.en": "Angielski"
 }

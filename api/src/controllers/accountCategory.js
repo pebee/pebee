@@ -46,7 +46,7 @@ router.get('/:id', (req, res) => {
         if (accountCategory) {
             res.send(pebee.api.responses.single(accountCategory.serialize()));
         } else {
-            res.status(404).send(pebee.api.responses.notFound(_t('Account category does not exist'), { id: req.params['id'] }));
+            res.status(404).send(pebee.api.responses.notFound(_t('pebee.accountCategories.doesNotExist'), { id: req.params['id'] }));
         }
     });
 
@@ -75,8 +75,8 @@ router.post('/', (req, res) => {
     pebee.models.AccountCategory.create(req.body).then(accountCategory => {
         res.send(pebee.api.responses.created(accountCategory.serialize()));
     }).catch(e => {
-        console.log(e);
-        res.status(422).send({ statusCode: 422, message: _t('Error while creating new account category') });
+        pebee.logger.error(e);
+        res.status(422).send({ statusCode: 422, message: _t('pebee.accountCategories.errorWhileCreating') });
     });
 
 });
@@ -87,16 +87,23 @@ router.put('/:id', (req, res) => {
 
     pebee.models.AccountCategory.findById(req.params['id']).then(accountCategory => {
         if (accountCategory) {
-            accountCategory.update(req.body).then(self => {
-                self.setPermissions(req.body.permissions).then(() => {
+            return accountCategory.update(req.body).then(self => {
+
+                if (Array.isArray(req.body.permissions)) {
+                    return self.setPermissions(req.body.permissions).then(() => {
+                        res.send(pebee.api.responses.updated(self.serialize()));
+                    });
+                } else {
                     res.send(pebee.api.responses.updated(self.serialize()));
-                });
+                }
+                
             });
         } else {
-            res.status(404).send(pebee.api.responses.notFound(_t('Account category does not exist'), { id: req.params['id'] }));
+            res.status(404).send(pebee.api.responses.notFound(_t('pebee.accountCategories.doesNotExist'), { id: req.params['id'] }));
         }
     }).catch(e => {
-        res.status(422).send({ message: _t('Error while updating account category') });
+        pebee.logger.error(e);
+        res.status(422).send({ message: _t('pebee.accountCategories.errorWhileUpdating') });
     });
     
 });
@@ -108,13 +115,13 @@ router.delete('/:id', (req, res) => {
     pebee.models.AccountCategory.findById(req.params['id']).then(accountCategory => {
         if (accountCategory) {
             accountCategory.destroy().then(() => {
-                res.send(pebee.api.responses.deleted(_t('Account category has been deleted')));
+                res.send(pebee.api.responses.deleted(_t('pebee.accountCategories.deleteSuccess')));
             });
         } else {
-            res.status(404).send(pebee.api.responses.notFound(_t('Account category does not exist'), { id: req.params['id'] }));
+            res.status(404).send(pebee.api.responses.notFound(_t('pebee.accountCategories.doesNotExist'), { id: req.params['id'] }));
         }
     }).catch(e => {
-        res.status(400).send({ message: _t('Error while deleting account category') });
+        res.status(400).send({ message: _t('pebee.accountCategories.errorWhileDeleting') });
     });
 
 });

@@ -11,16 +11,16 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
                 unique: {
-                    msg: _t('This username is already in use')
+                    msg: _t('pebee.users.usernameTaken')
                 }
             },
             email: {
                 type: DataTypes.STRING,
                 allowNull: {
-                    msg: _t('pebee.user.emailIsRequired')
+                    msg: _t('pebee.users.emailIsRequired')
                 },
                 validate: {
-                    isEmail: { msg: _t('Please provide valid e-mail') }
+                    isEmail: { msg: _t('pebee.users.validEmail') }
                 }
             },
             password: {
@@ -81,7 +81,7 @@ module.exports = (sequelize, DataTypes) => {
             verifyPassword: function(data) {
                 if ( !data['password'] || !data['username'] ) {
                     return new Promise((resolve, reject) => {
-                        reject(new Error(_t('Password and e-mail are required to login')));
+                        reject(new Error(_t('pebee.global.passwordAndEmailRequiredToLogin')));
                     });
                 }
 

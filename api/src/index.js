@@ -5,16 +5,20 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 
+// Swagger
+import swaggerUI from 'swagger-ui-express';
+import swaggerConfiguration from './../swagger.json';
+
 
 import routers from './controllers';
 import { authorize } from './utils/api/auth';
-import GCS from './utils/storage';
+import { loadLanguage } from './utils/api/middlewares';
 
-new GCS().getObjects('Media').then(res => {
-    console.log(res);
-});
 
 const app = express();
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerConfiguration));
+
 
 app.listen(process.env.API_PORT, () => {
     console.log('PeBeeCMS API listening on port ' + process.env.API_PORT);
@@ -29,6 +33,8 @@ app.use((req, res, next) => {
 });
 
 app.use(cookieParser());
+
+app.use(loadLanguage);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

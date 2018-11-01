@@ -5,27 +5,26 @@ import path from 'path';
 
 
 export const changeLang = (langCode) => {
-    global.lang = langCode;
+    let langCacheTime = 1000 * 3600 * 24;
+
+    memCache.put('lang', langCode, langCacheTime);
     loadTranslationsToMemory();
 };
 
-export const _t = (text) => {
-    // if lang is set to english, simply return the text
-    if (lang === 'en') return text;
-
+export const _t = (text, defaultText) => {
     // check if current language translations are in memory cache, if yes, return value from cache
     let translations = memCache.get('translations');
-    if (translations) return translations[text] || text;
+    if (translations) return translations[text] || defaultText;
 
     // otherwise load translations to memory and return proper value
     loadTranslationsToMemory();
-    return memCache.get('translations')[text] || text;
+    return memCache.get('translations')[text] || defaultText;
 };
 
 
 // load translations file for current language and put them in memory cache for 100 days
 export const loadTranslationsToMemory = () => {
-    let translationsFilePath = path.resolve(process.cwd(), 'translations', lang + '.json'),
+    let translationsFilePath = path.resolve(process.cwd(), 'translations', memCache.get('lang') + '.json'),
         translationsCacheTime = 1000 * 3600 * 24,
         currentLangTranslations;
 

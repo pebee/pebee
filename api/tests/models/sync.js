@@ -44,7 +44,14 @@ module.exports = () => {
                         { accountCategoryId: 1, permissionId: 7 },
                         { accountCategoryId: 1, permissionId: 8 },
                         { accountCategoryId: 2, permissionId: 9 },
-                    ]);
+                    ]).then(() => {
+
+                        // Options
+                        return pebee.models.Option.bulkCreate([
+                            { key: 'lang', displayName: 'Language', value: 'en', isProtected: true }
+                        ]);
+
+                    });
                 });
             });
         });

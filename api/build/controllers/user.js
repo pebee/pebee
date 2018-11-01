@@ -70,7 +70,7 @@ router.get('/:id', function (req, res) {
     if (user) {
       res.send(responses.single(user.serialize()));
     } else {
-      res.status(404).send(pebee.api.responses.notFound(_t('User does not exist'), {
+      res.status(404).send(pebee.api.responses.notFound(_t('pebee.users.doesNotExist'), {
         id: req.params['id']
       }));
     }
@@ -102,13 +102,13 @@ router.put('/:id', function (req, res) {
         res.status(422).send(pebee.api.responses.modelError(e));
       });
     } else {
-      res.status(404).send(pebee.api.responses.notFound(_t('User does not exist'), {
+      res.status(404).send(pebee.api.responses.notFound(_t('pebee.users.doesNotExist'), {
         id: req.params['id']
       }));
     }
   }).catch(function (e) {
     res.status(422).send({
-      message: _t('Error while updating user')
+      message: _t('pebee.users.errorWhileUpdating')
     });
   });
 });
@@ -127,13 +127,13 @@ router.put('/:id/restore', function (req, res) {
         res.status(422).send(pebee.api.responses.modelError(e));
       });
     } else {
-      res.status(404).send(pebee.api.responses.notFound(_t('User does not exist'), {
+      res.status(404).send(pebee.api.responses.notFound(_t('pebee.users.doesNotExist'), {
         id: req.params['id']
       }));
     }
   }).catch(function (e) {
     res.status(422).send({
-      message: _t('Error while restoring user')
+      message: _t('pebee.users.errorWhileRestoring')
     });
   });
 });
@@ -145,16 +145,16 @@ router.delete('/:id', function (req, res) {
   pebee.models.User.findById(req.params['id']).then(function (user) {
     if (user) {
       user.destroy().then(function () {
-        res.send(pebee.api.responses.deleted(_t('User has been deleted')));
+        res.send(pebee.api.responses.deleted(_t('pebee.users.deleteSuccess')));
       });
     } else {
-      res.status(404).send(pebee.api.responses.notFound(_t('User does not exist'), {
+      res.status(404).send(pebee.api.responses.notFound(_t('pebee.users.doesNotExist'), {
         id: req.params['id']
       }));
     }
   }).catch(function (e) {
     res.status(400).send({
-      message: _t('Error while deleting user')
+      message: _t('pebee.users.errorWhileDeleting')
     });
   });
 });

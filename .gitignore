@@ -1,5 +1,5 @@
 # Global
-extensions
+/extensions/pebee-cms
 node_modules
 
 # API

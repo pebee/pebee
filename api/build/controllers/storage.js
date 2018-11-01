@@ -33,6 +33,19 @@ router.get('/download', function (req, res) {
       message: _t('pebee.storage.fileDownloadFailure')
     });
   });
+}); // delete file
+
+router.post('/delete', function (req, res) {
+  GCS.deleteFile(req.body['filename']).then(function () {
+    res.send({
+      message: _t('pebee.storage.fileDeleteSuccess')
+    });
+  }).catch(function (e) {
+    pebee.logger.info(e);
+    res.status(400).send({
+      message: _t('pebee.storage.fileDeleteFailure')
+    });
+  });
 }); // upload files
 
 router.post('/upload', upload.array('files'), function (req, res, next) {

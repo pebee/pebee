@@ -65,7 +65,7 @@ export const restored = message => {
 
 
 export const notAuthorized = (message) => {
-    message = message ? message : 'You are not authorized to perform this operation';
+    message = message ? message : 'pebee.global.notAuthorized';
 
     return {
         statusCode: 401,

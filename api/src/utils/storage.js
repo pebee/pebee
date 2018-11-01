@@ -37,8 +37,25 @@ class GoogleCloudStorage {
             });
         } else {
             return new Promise((resolve, reject) => {
-                reject('File does not exist');
+                reject(_t('pebee.storage.fileDoesNotExist'));
             });
+        }
+
+    }
+
+    /**
+     * Delete given file from GCS
+     * 
+     * @param {String} filename Full name of file to be deleted
+     */
+    deleteFile(filename) {
+
+        let bucketFile = this.bucket.file(filename);
+
+        if (bucketFile) {
+            return bucketFile.delete();
+        } else {
+            return Promise.reject(_t('pebee.storage.fileDoesNotExist'));
         }
 
     }

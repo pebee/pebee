@@ -49,8 +49,25 @@ function () {
         });
       } else {
         return new Promise(function (resolve, reject) {
-          reject('File does not exist');
+          reject(_t('pebee.storage.fileDoesNotExist'));
         });
+      }
+    }
+    /**
+     * Delete given file from GCS
+     * 
+     * @param {String} filename Full name of file to be deleted
+     */
+
+  }, {
+    key: "deleteFile",
+    value: function deleteFile(filename) {
+      var bucketFile = this.bucket.file(filename);
+
+      if (bucketFile) {
+        return bucketFile.delete();
+      } else {
+        return Promise.reject(_t('pebee.storage.fileDoesNotExist'));
       }
     }
     /**

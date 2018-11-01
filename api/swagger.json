@@ -1,0 +1,380 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.1.0",
+        "title": "PeBee API"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API endpoints for users module"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [ "Users" ],
+                "summary": "Get paginated users",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "schema": { "type": "string" },
+                        "description": "Ascending or descending order"
+                    },
+                    {
+                        "in": "query",
+                        "name": "orderBy",
+                        "schema": { "type": "string" },
+                        "description": "Order by specified field"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": { "type": "integer" },
+                        "description": "Which page of results to return"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": { "type": "integer" },
+                        "description": "Number of results per page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "statusCode": {
+                                    "type": "integer"
+                                },
+                                "elementsCount": {
+                                    "type": "integer"
+                                },
+                                "totalRows": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "$ref": "#/components/schemas/Users"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Users"],
+                "summary": "Create new user",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "required": true,
+                        "schema": { "$ref": "#/components/schemas/CreateUser" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User created",
+                        "schema": {
+                            "properties": {
+                                "statusCode": { "type": "integer" },
+                                "data": { "$ref": "#/components/schemas/User" }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/InvalidDataResponse"
+                    }
+                }
+            }
+        },
+        "/users/all": {
+            "get": {
+                "tags": [ "Users" ],
+                "summary": "Get all system users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "statusCode": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "$ref": "#/components/schemas/Users"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [ "Users" ],
+                "summary": "Return single user by given ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": { "type": "integer" },
+                        "required": true,
+                        "description": "ID of user to be returned"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "statusCode": { "type": "integer" },
+                                "data": { "$ref": "#/components/schemas/User" }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Users"],
+                "summary": "Update specified user",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID of user to be updated",
+                        "required": true,
+                        "schema": { "type": "integer", "example": 1 }
+                    },
+                    {
+                        "in": "body",
+                        "description": "Update data",
+                        "required": true,
+                        "schema": { "$ref": "#/components/schemas/CreateUser" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User updated",
+                        "schema": {
+                            "properties": {
+                                "statusCode": { "type": "integer", "example": 200 },
+                                "data": { "type": "object", "$ref": "#/components/schemas/User" }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/InvalidDataResponse"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Users"],
+                "summary": "Delete specified user",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "ID of user to be deleted",
+                        "schema": { "type": "integer", "example": 1 }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SuccessResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    }
+                }
+            }
+        },
+        "/users/{id}/restore": {
+            "put": {
+                "tags": ["Users"],
+                "summary": "Restore specified user",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "ID of user to be restored",
+                        "schema": { "type": "integer", "example": 1 }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SuccessResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "uniqueItems": true
+                    },
+                    "email": {
+                        "type": "string",
+                        "uniqueItems": true
+                    },
+                    "username": {
+                        "type": "string",
+                        "uniqueItems": true
+                    },
+                    "accountCategory": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/AccountCategory"
+                    }
+                }
+            },
+            "CreateUser": {
+                "required": ["username", "password"],
+                "properties": {
+                    "email": { "type": "string", "example": "user@example.com" },
+                    "username": { "type": "string", "example": "pebee" },
+                    "accountCategory": { "type": "integer", "example": 1 }
+                }
+            },
+            "Users": {
+                "type": "array",
+                "$ref": "#/components/schemas/User"
+            },
+            "Permission": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "uniqueItems": true
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string",
+                        "uniqueItems": true
+                    }
+                }
+            },
+            "Permissions": {
+                "type": "array",
+                "$ref": "#/components/schemas/Permission"  
+            },
+            "AccountCategory": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "uniqueItems": true
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string",
+                        "uniqueItems": true
+                    },
+                    "isProtected": {
+                        "type": "boolean"
+                    },
+                    "permissions": {
+                        "type": "array",
+                        "$ref": "#/components/schemas/Permissions"
+                    }
+                }
+            },
+            "AccountCategories": {
+                "type": "array",
+                "$ref": "#/components/schemas/AccountCategory"
+            },
+            "InvalidData": {
+                "properties": {
+                    "statusCode": {
+                        "type": "integer",
+                        "example": 422
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Success": {
+                "properties": {
+                    "statusCode": {
+                        "type": "integer",
+                        "example": 200
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            },
+            "NotFound": {
+                "properties": {
+                    "statusCode": {
+                        "type": "integer",
+                        "example": 404
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "object",
+                        "example": {
+                            "id": 100
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "InvalidDataResponse": {
+                "description": "Invalid data",
+                "schema": { "$ref": "#/components/schemas/InvalidData" }
+            },
+            "SuccessResponse": {
+                "description": "OK",
+                "schema": { "$ref": "#/components/schemas/Success" }
+            },
+            "NotFoundResponse": {
+                "description": "Resource not found",
+                "schema": { "$ref": "#/components/schemas/NotFound" }
+            }
+        }
+    }
+}

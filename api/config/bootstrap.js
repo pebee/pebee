@@ -54,7 +54,7 @@ let extensionsPath = process.cwd() + '/../extensions';
 // load extensions
 fs.readdirSync(process.cwd() + '/../extensions')
     .filter(extensionDir => {
-        return extensionDir.indexOf('.') === -1
+        return (extensionDir.indexOf('.') === -1 && extensionDir !== 'node_modules');
     })
     .forEach(extensionDir => {
     let extensionConfigFilePath = path.resolve(extensionsPath, extensionDir, 'extension.json');
@@ -74,6 +74,7 @@ fs.readdirSync(process.cwd() + '/../extensions')
         throw new Error(`Extension at ${extensionPath} does not have required 'extension.json' file!`);
     }
 });
+
 
 
 // popularize global PeBee object

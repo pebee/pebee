@@ -43,7 +43,7 @@ fs
 // iterate over extensions and load their models
 let extensionsDir = process.cwd() + '/../extensions';
 fs.readdirSync(extensionsDir)
-    .filter(singleExtensionDir => { return singleExtensionDir.indexOf('.') === -1; })
+    .filter(singleExtensionDir => { return (singleExtensionDir.indexOf('.') === -1 && singleExtensionDir !== 'node_modules'); })
     .forEach(singleExtensionDir => {
         let extensionPath = path.resolve(extensionsDir, singleExtensionDir);
 
@@ -91,7 +91,7 @@ fs.readdirSync(extensionsDir)
                     }
                 });
         } catch (e) {
-            throw e;
+            
         }
     
 });

@@ -20,5 +20,6 @@ describe('Tests bootstrap', () => {
 
     require('./models/accountCategories')(config);
     require('./models/users')(config);
+    require('./models/option')(config);
 
 });

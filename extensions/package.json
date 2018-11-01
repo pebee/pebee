@@ -1,11 +1,12 @@
 {
-  "name": "pebee",
+  "name": "pebee-extensions",
   "version": "1.0.0",
-  "description": "PeBeeCMS",
+  "description": "PeBee extensions",
+  "main": "index.js",
   "scripts": {},
   "author": "Piotr Bienias",
   "license": "ISC",
   "dependencies": {
-    "pebee-extensions": "file:extensions"
+    "express": "^4.16.4"
   }
 }

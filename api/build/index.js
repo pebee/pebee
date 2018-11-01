@@ -8,19 +8,22 @@ var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 
+var _swaggerUiExpress = _interopRequireDefault(require("swagger-ui-express"));
+
+var _swagger = _interopRequireDefault(require("./../swagger.json"));
+
 var _controllers = _interopRequireDefault(require("./controllers"));
 
 var _auth = require("./utils/api/auth");
 
-var _storage = _interopRequireDefault(require("./utils/storage"));
+var _middlewares = require("./utils/api/middlewares");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Parsers
-new _storage.default().getObjects('Media').then(function (res) {
-  console.log(res);
-});
+// Swagger
 var app = (0, _express.default)();
+app.use('/api-docs', _swaggerUiExpress.default.serve, _swaggerUiExpress.default.setup(_swagger.default));
 app.listen(process.env.API_PORT, function () {
   console.log('PeBeeCMS API listening on port ' + process.env.API_PORT);
 });
@@ -32,6 +35,7 @@ app.use(function (req, res, next) {
   next();
 });
 app.use((0, _cookieParser.default)());
+app.use(_middlewares.loadLanguage);
 app.use(_bodyParser.default.json());
 app.use(_bodyParser.default.urlencoded({
   extended: true

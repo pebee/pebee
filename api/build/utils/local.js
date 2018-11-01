@@ -12,28 +12,27 @@ var _path = _interopRequireDefault(require("path"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var changeLang = function changeLang(langCode) {
-  global.lang = langCode;
+  var langCacheTime = 1000 * 3600 * 24;
+  memCache.put('lang', langCode, langCacheTime);
   loadTranslationsToMemory();
 };
 
 exports.changeLang = changeLang;
 
-var _t = function _t(text) {
-  // if lang is set to english, simply return the text
-  if (lang === 'en') return text; // check if current language translations are in memory cache, if yes, return value from cache
-
+var _t = function _t(text, defaultText) {
+  // check if current language translations are in memory cache, if yes, return value from cache
   var translations = memCache.get('translations');
-  if (translations) return translations[text] || text; // otherwise load translations to memory and return proper value
+  if (translations) return translations[text] || defaultText; // otherwise load translations to memory and return proper value
 
   loadTranslationsToMemory();
-  return memCache.get('translations')[text] || text;
+  return memCache.get('translations')[text] || defaultText;
 }; // load translations file for current language and put them in memory cache for 100 days
 
 
 exports._t = _t;
 
 var loadTranslationsToMemory = function loadTranslationsToMemory() {
-  var translationsFilePath = _path.default.resolve(process.cwd(), 'translations', lang + '.json'),
+  var translationsFilePath = _path.default.resolve(process.cwd(), 'translations', memCache.get('lang') + '.json'),
       translationsCacheTime = 1000 * 3600 * 24,
       currentLangTranslations;
 
